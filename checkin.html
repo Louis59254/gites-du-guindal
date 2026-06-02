@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espace Voyageurs – Les Gîtes du Guindal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:    #1B4F5E;
+      --green-mid:#2A6978;
+      --green-lt: #3D8FA3;
+      --amber:    #C4A035;
+      --amber-dk: #A88520;
+      --cream:    #F7F2E8;
+      --white:    #FFFFFF;
+      --gray-50:  #F5F0E8;
+      --gray-100: #EDE8DC;
+      --gray-200: #D8D2C4;
+      --gray-400: #9CA3AF;
+      --gray-600: #4B5563;
+      --gray-800: #1F2937;
+      --dark:     #0D1F27;
+      --red:      #E05252;
+      --green-ok: #2D7A4A;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-800); min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── PASSWORD SCREEN ── */
+    #lock-screen {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(155deg, #0D1F27 0%, #1B4F5E 50%, #0D1F27 100%);
+      padding: 20px;
+    }
+    .lock-box {
+      background: rgba(255,255,255,0.06); backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px; padding: 48px 40px; width: 100%; max-width: 400px;
+      text-align: center;
+    }
+    .lock-logo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin: 0 auto 24px; border: 2px solid rgba(196,160,53,0.5); }
+    .lock-title { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: white; margin-bottom: 6px; }
+    .lock-sub { font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 32px; }
+    .lock-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; display: block; text-align: left; }
+    .lock-input {
+      width: 100%; background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.15);
+      color: white; font-family: 'DM Sans', sans-serif; font-size: 1rem;
+      padding: 13px 16px; border-radius: 10px; outline: none; letter-spacing: 0.08em;
+      transition: border-color 0.2s;
+    }
+    .lock-input:focus { border-color: rgba(196,160,53,0.6); }
+    .lock-input.error { border-color: var(--red); animation: shake 0.4s ease; }
+    .lock-error { font-size: 0.78rem; color: var(--red); margin-top: 8px; display: none; }
+    .lock-btn {
+      width: 100%; margin-top: 16px; background: var(--amber); color: var(--dark);
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+      padding: 14px; border-radius: 10px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .lock-btn:hover { background: var(--amber-dk); transform: translateY(-2px); }
+    .lock-back { display: block; margin-top: 20px; font-size: 0.78rem; color: rgba(255,255,255,0.35); transition: color 0.2s; }
+    .lock-back:hover { color: rgba(255,255,255,0.7); }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+
+    /* ── MAIN CONTENT ── */
+    #main { display: none; }
+
+    /* ── NAV ── */
+    .nav { position: sticky; top: 0; z-index: 100; background: rgba(13,31,39,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 20px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'DM Serif Display', serif; font-size: 1rem; color: white; }
+    .nav-logo img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+    .nav-right { display: flex; gap: 10px; align-items: center; }
+    .nav-badge { background: rgba(196,160,53,0.2); border: 1px solid rgba(196,160,53,0.4); color: var(--amber); font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 20px; letter-spacing: 0.05em; }
+    .nav-back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; color: rgba(255,255,255,0.55); padding: 6px 12px; border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; transition: all 0.2s; }
+    .nav-back-btn:hover { color: white; border-color: rgba(255,255,255,0.4); }
+
+    /* ── SECTION NAV ── */
+    .sec-nav { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 60px; z-index: 99; }
+    .sec-nav-inner { display: flex; overflow-x: auto; scrollbar-width: none; }
+    .sec-nav-inner::-webkit-scrollbar { display: none; }
+    .sec-tab { flex-shrink: 0; padding: 13px 20px; font-size: 0.82rem; font-weight: 500; color: var(--gray-600); border-bottom: 3px solid transparent; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+    .sec-tab:hover { color: var(--green); }
+    .sec-tab.active { color: var(--green); border-bottom-color: var(--amber); font-weight: 600; }
+
+    /* ── PAGE CONTENT ── */
+    .page { max-width: 900px; margin: 0 auto; padding: 40px 20px 80px; }
+
+    /* ── WELCOME BANNER ── */
+    .welcome-banner {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      border-radius: 16px; padding: 32px 36px; color: white; margin-bottom: 40px;
+      display: flex; gap: 20px; align-items: center; flex-wrap: wrap;
+    }
+    .welcome-icon { font-size: 3rem; flex-shrink: 0; }
+    .welcome-text h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: white; margin-bottom: 6px; }
+    .welcome-text p { font-size: 0.88rem; color: rgba(255,255,255,0.7); line-height: 1.6; }
+
+    /* ── INFO SECTION ── */
+    .info-section { margin-bottom: 48px; scroll-margin-top: 130px; }
+    .info-section-title {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--green);
+      margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--gray-200);
+    }
+    .info-section-title .sec-icon { font-size: 1.5rem; }
+
+    /* ── INFO CARDS ── */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+    .info-card {
+      background: var(--white); border-radius: 12px; padding: 20px;
+      border: 1px solid var(--gray-200); border-left: 4px solid var(--amber);
+    }
+    .info-card.green { border-left-color: var(--green-ok); }
+    .info-card.red   { border-left-color: var(--red); }
+    .info-card.blue  { border-left-color: var(--green-lt); }
+    .info-card-icon  { font-size: 1.6rem; margin-bottom: 10px; }
+    .info-card-title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); margin-bottom: 6px; }
+    .info-card-value { font-size: 1rem; font-weight: 600; color: var(--gray-800); margin-bottom: 4px; }
+    .info-card-sub   { font-size: 0.8rem; color: var(--gray-600); line-height: 1.5; }
+
+    /* ── CHECKLIST ── */
+    .checklist { background: var(--white); border-radius: 14px; border: 1px solid var(--gray-200); overflow: hidden; }
+    .checklist-header { background: var(--green); color: white; padding: 18px 24px; font-family: 'DM Serif Display', serif; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+    .checklist-body { padding: 8px 0; }
+    .check-item {
+      display: flex; align-items: flex-start; gap: 14px; padding: 14px 24px;
+      border-bottom: 1px solid var(--gray-100); cursor: pointer; transition: background 0.15s;
+    }
+    .check-item:last-child { border-bottom: none; }
+    .check-item:hover { background: var(--gray-50); }
+    .check-item input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; cursor: pointer; accent-color: var(--green); }
+    .check-item label { font-size: 0.88rem; color: var(--gray-700); line-height: 1.5; cursor: pointer; flex: 1; }
+    .check-item label strong { color: var(--gray-800); font-weight: 600; }
+    .check-item.done label { color: var(--gray-400); text-decoration: line-through; }
+    .checklist-progress { padding: 14px 24px; background: var(--gray-50); font-size: 0.8rem; color: var(--gray-600); display: flex; align-items: center; gap: 10px; }
+    .progress-bar { flex: 1; height: 6px; background: var(--gray-200); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--green-ok); border-radius: 3px; transition: width 0.4s ease; }
+
+    /* ── HORAIRES BIG ── */
+    .horaires-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .horaire-big {
+      background: var(--white); border-radius: 14px; padding: 28px;
+      border: 1px solid var(--gray-200); text-align: center;
+    }
+    .horaire-big.checkin { border-top: 4px solid var(--green-ok); }
+    .horaire-big.checkout { border-top: 4px solid var(--red); }
+    .horaire-time { font-family: 'DM Serif Display', serif; font-size: 2.8rem; font-weight: 400; line-height: 1; margin-bottom: 6px; }
+    .horaire-big.checkin .horaire-time  { color: var(--green-ok); }
+    .horaire-big.checkout .horaire-time { color: var(--red); }
+    .horaire-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-400); margin-bottom: 8px; }
+    .horaire-note { font-size: 0.8rem; color: var(--gray-600); line-height: 1.5; }
+
+    /* ── CODE BOX ── */
+    .code-box {
+      background: var(--dark); color: white; border-radius: 12px; padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 12px;
+    }
+    .code-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
+    .code-value { font-size: 1.4rem; font-weight: 700; letter-spacing: 0.2em; color: var(--amber); font-family: monospace; }
+    .code-copy { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; font-size: 0.75rem; font-weight: 600; padding: 7px 14px; border-radius: 8px; cursor: pointer; transition: all 0.2s; font-family: inherit; white-space: nowrap; }
+    .code-copy:hover { background: rgba(255,255,255,0.2); }
+    .code-copy.copied { background: var(--green-ok); border-color: var(--green-ok); }
+
+    /* ── ALERT BOX ── */
+    .alert { border-radius: 10px; padding: 16px 20px; margin-bottom: 16px; display: flex; align-items: flex-start; gap: 12px; font-size: 0.85rem; line-height: 1.6; }
+    .alert.warning { background: rgba(224,82,82,0.08); border: 1px solid rgba(224,82,82,0.25); color: #9B3A3A; }
+    .alert.info    { background: rgba(42,105,120,0.08); border: 1px solid rgba(42,105,120,0.25); color: var(--green); }
+    .alert.success { background: rgba(45,122,74,0.08); border: 1px solid rgba(45,122,74,0.25); color: var(--green-ok); }
+    .alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── CONTACTS ── */
+    .contact-grid { display: flex; flex-direction: column; gap: 10px; }
+    .contact-row { display: flex; align-items: center; gap: 14px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; padding: 14px 18px; }
+    .contact-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+    .contact-icon.green { background: rgba(45,122,74,0.12); }
+    .contact-icon.red   { background: rgba(224,82,82,0.1); }
+    .contact-icon.blue  { background: rgba(42,105,120,0.12); }
+    .contact-name { font-size: 0.78rem; font-weight: 700; color: var(--gray-400); letter-spacing: 0.05em; text-transform: uppercase; }
+    .contact-val  { font-size: 0.95rem; font-weight: 600; color: var(--gray-800); }
+    .contact-action { margin-left: auto; background: var(--green); color: white; font-size: 0.72rem; font-weight: 600; padding: 6px 12px; border-radius: 8px; border: none; cursor: pointer; font-family: inherit; transition: background 0.2s; white-space: nowrap; }
+    .contact-action:hover { background: var(--green-mid); }
+
+    /* ── MAP ── */
+    .map-container { border-radius: 14px; overflow: hidden; border: 1px solid var(--gray-200); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+    .map-container iframe { display: block; width: 100%; height: 380px; border: none; }
+
+    /* ── FOOTER ── */
+    .page-footer { text-align: center; padding: 24px 20px; font-size: 0.78rem; color: var(--gray-400); border-top: 1px solid var(--gray-200); margin-top: 40px; }
+
+    @media (max-width: 600px) {
+      .lock-box { padding: 36px 24px; }
+      .horaires-row { grid-template-columns: 1fr; }
+      .welcome-banner { flex-direction: column; padding: 24px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .code-box { flex-direction: column; align-items: flex-start; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOCK SCREEN ── -->
+<div id="lock-screen">
+  <div class="lock-box">
+    <img src="logo_gites_guindal.jpg" alt="Logo" class="lock-logo" />
+    <h1 class="lock-title">Espace Voyageurs</h1>
+    <p class="lock-sub">Accès réservé aux hôtes des Gîtes du Guindal</p>
+    <label class="lock-label" for="pwd">Mot de passe</label>
+    <input type="password" id="pwd" class="lock-input" placeholder="••••••••••" autocomplete="off" />
+    <p class="lock-error" id="lock-error">Mot de passe incorrect. Contactez-nous si besoin.</p>
+    <button class="lock-btn" onclick="unlock()">Accéder →</button>
+    <a href="index.html" class="lock-back">← Retour au site</a>
+  </div>
+</div>
+
+<!-- ── MAIN CONTENT ── -->
+<div id="main">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="logo_gites_guindal.jpg" alt="Logo" />
+        Les Gîtes du Guindal
+      </a>
+      <div class="nav-right">
+        <span class="nav-badge">🔑 Espace voyageurs</span>
+        <a href="index.html" class="nav-back-btn">← Site</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SECTION NAV -->
+  <div class="sec-nav">
+    <div class="sec-nav-inner">
+      <button class="sec-tab active" data-sec="horaires">⏰ Horaires</button>
+      <button class="sec-tab" data-sec="acces">🔑 Accès & Codes</button>
+      <button class="sec-tab" data-sec="checkout">✅ Check-out</button>
+      <button class="sec-tab" data-sec="wifi">📶 WiFi & TV</button>
+      <button class="sec-tab" data-sec="consignes">🗑️ Consignes</button>
+      <button class="sec-tab" data-sec="contacts">📞 Contacts</button>
+      <button class="sec-tab" data-sec="plan">🗺️ Plan</button>
+    </div>
+  </div>
+
+  <div class="page">
+
+    <!-- WELCOME -->
+    <div class="welcome-banner">
+      <span class="welcome-icon">🏡</span>
+      <div class="welcome-text">
+        <h2>Bienvenue aux Gîtes du Guindal !</h2>
+        <p>Toutes les informations pratiques pour votre séjour. En cas de question, n'hésitez pas à nous appeler directement — nous sommes là pour vous.</p>
+      </div>
+    </div>
+
+    <!-- HORAIRES -->
+    <div class="info-section" id="horaires">
+      <h2 class="info-section-title"><span class="sec-icon">⏰</span> Horaires d'arrivée & départ</h2>
+      <div class="horaires-row">
+        <div class="horaire-big checkin">
+          <div class="horaire-label">Check-in</div>
+          <div class="horaire-time">16h00</div>
+          <div class="horaire-note">À partir de 16h00<br>Arrivée tardive possible<br>Prévenez-nous à l'avance</div>
+        </div>
+        <div class="horaire-big checkout">
+          <div class="horaire-label">Check-out</div>
+          <div class="horaire-time">10h00</div>
+          <div class="horaire-note">Avant 10h00<br>Départ tardif possible<br>sous réserve de disponibilité</div>
+        </div>
+      </div>
+      <div class="alert info">
+        <span class="alert-icon">ℹ️</span>
+        <span>Si vous avez besoin d'un départ tardif ou d'une arrivée anticipée, contactez-nous au moins 24h à l'avance — nous ferons notre possible pour vous accommoder.</span>
+      </div>
+    </div>
+
+    <!-- ACCÈS & CODES -->
+    <div class="info-section" id="acces">
+      <h2 class="info-section-title"><span class="sec-icon">🔑</span> Accès & Codes</h2>
+
+      <div class="code-box">
+        <div>
+          <div class="code-label">Digicode portail</div>
+          <div class="code-value">2 6 # 4 8</div>
+        </div>
+        <button class="code-copy" onclick="copyCode('2648', this)">Copier</button>
+      </div>
+
+      <div class="code-box">
+        <div>
+          <div class="code-label">Boîte à clés (si arrivée autonome)</div>
+          <div class="code-value">1 9 4 4</div>
+        </div>
+        <button class="code-copy" onclick="copyCode('1944', this)">Copier</button>
+      </div>
+
+      <div class="alert warning" style="margin-top:16px">
+        <span class="alert-icon">⚠️</span>
+        <span><strong>Important :</strong> Refermez toujours le portail derrière vous. La sécurité du domaine dépend de tous les résidents. Ne communiquez pas les codes à des tiers.</span>
+      </div>
+
+      <div class="info-grid" style="margin-top:20px">
+        <div class="info-card">
+          <div class="info-card-icon">🚗</div>
+          <div class="info-card-title">Parking</div>
+          <div class="info-card-value">Places réservées</div>
+          <div class="info-card-sub">Places numérotées devant chaque hébergement. Parking privé sécurisé, disponible 24h/24.</div>
+        </div>
+        <div class="info-card green">
+          <div class="info-card-icon">🏠</div>
+          <div class="info-card-title">Remise des clés</div>
+          <div class="info-card-value">En main propre</div>
+          <div class="info-card-sub">Nous vous accueillerons à votre arrivée pour vous remettre les clés et vous faire visiter le gîte.</div>
+        </div>
+        <div class="info-card blue">
+          <div class="info-card-icon">🌙</div>
+          <div class="info-card-title">Arrivée tardive</div>
+          <div class="info-card-value">Boîte à clés</div>
+          <div class="info-card-sub">En cas d'arrivée après 20h, les clés sont déposées dans la boîte à clés sécurisée à l'entrée du domaine.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECK-OUT -->
+    <div class="info-section" id="checkout">
+      <h2 class="info-section-title"><span class="sec-icon">✅</span> Check-out — Liste de départ</h2>
+
+      <div class="alert warning">
+        <span class="alert-icon">⏰</span>
+        <span><strong>Départ avant 10h00.</strong> Merci de respecter cet horaire afin que nous puissions préparer l'hébergement pour les prochains voyageurs.</span>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-header">📋 Votre checklist avant de partir</div>
+        <div class="checklist-progress">
+          <span id="progress-text">0 / 12 complété</span>
+          <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        </div>
+        <div class="checklist-body" id="checklistBody">
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Vaisselle</strong> — Faite la vaisselle ou lancez le lave-vaisselle</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Réfrigérateur</strong> — Videz et nettoyez le frigo, jetez les denrées périssables</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Poubelles</strong> — Sortez les poubelles dans les containers prévus (voir consignes)</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Linge de lit</strong> — Laissez le linge de lit en boule sur le lit (pas besoin de plier)</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Serviettes</strong> — Déposez les serviettes dans la baignoire ou la douche</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Chauffage</strong> — Éteignez le chauffage ou repassez en mode hors-gel (16°C)</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Lumières & appareils</strong> — Vérifiez que toutes les lumières et appareils sont éteints</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Fenêtres & volets</strong> — Fermez toutes les fenêtres et volets</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Portes</strong> — Fermez à clé toutes les portes (entrée, jardin, terrasse)</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Clés</strong> — Déposez les clés dans la boîte à clés ou remettez-les en main propre</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Affaires personnelles</strong> — Vérifiez que vous n'oubliez rien (chargeurs, médicaments, etc.)</label></div>
+          <div class="check-item" onclick="toggle(this)"><input type="checkbox" /><label><strong>Extérieur</strong> — Ramassez vos affaires sur la terrasse/jardin, éteignez le barbecue si utilisé</label></div>
+        </div>
+      </div>
+
+      <div class="alert success" style="margin-top:16px">
+        <span class="alert-icon">💬</span>
+        <span>Un avis sur votre séjour nous aide beaucoup ! Laissez un commentaire sur Airbnb ou Booking — merci infiniment pour votre confiance.</span>
+      </div>
+    </div>
+
+    <!-- WIFI & TV -->
+    <div class="info-section" id="wifi">
+      <h2 class="info-section-title"><span class="sec-icon">📶</span> WiFi & Télévision</h2>
+      <div class="code-box">
+        <div>
+          <div class="code-label">Réseau WiFi</div>
+          <div class="code-value">Guindal_Guest</div>
+        </div>
+        <button class="code-copy" onclick="copyCode('Guindal_Guest', this)">Copier</button>
+      </div>
+      <div class="code-box">
+        <div>
+          <div class="code-label">Mot de passe WiFi</div>
+          <div class="code-value">Bienvenue2024!</div>
+        </div>
+        <button class="code-copy" onclick="copyCode('Bienvenue2024!', this)">Copier</button>
+      </div>
+      <div class="info-grid" style="margin-top:16px">
+        <div class="info-card">
+          <div class="info-card-icon">📺</div>
+          <div class="info-card-title">Télévision</div>
+          <div class="info-card-value">TNT + Netflix</div>
+          <div class="info-card-sub">Télévision disponible dans le salon. Netflix est accessible — connectez-vous avec vos identifiants personnels.</div>
+        </div>
+        <div class="info-card blue">
+          <div class="info-card-icon">📡</div>
+          <div class="info-card-title">Connexion</div>
+          <div class="info-card-value">Fibre optique</div>
+          <div class="info-card-sub">Connexion fibre disponible dans tout le gîte. Débit suffisant pour le streaming et le télétravail.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSIGNES -->
+    <div class="info-section" id="consignes">
+      <h2 class="info-section-title"><span class="sec-icon">🗑️</span> Consignes pratiques</h2>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-icon">♻️</div>
+          <div class="info-card-title">Poubelles</div>
+          <div class="info-card-value">Tri sélectif</div>
+          <div class="info-card-sub"><strong>Jaune</strong> : plastiques, cartons, boîtes. <strong>Vert</strong> : verre. <strong>Gris</strong> : ordures ménagères. Containers à l'entrée du domaine.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">🔥</div>
+          <div class="info-card-title">Barbecue</div>
+          <div class="info-card-value">Charbon fourni</div>
+          <div class="info-card-sub">Le charbon est disponible dans le local technique. Nettoyez la grille après usage. Éteignez complètement avant de quitter.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">👕</div>
+          <div class="info-card-title">Lave-linge</div>
+          <div class="info-card-value">Disponible</div>
+          <div class="info-card-sub">Lessive fournie en petite quantité. Programmes 30°C et 40°C recommandés. Étendoir disponible dans le gîte.</div>
+        </div>
+        <div class="info-card red">
+          <div class="info-card-icon">🚭</div>
+          <div class="info-card-title">Tabac</div>
+          <div class="info-card-value">Interdit à l'intérieur</div>
+          <div class="info-card-sub">Il est strictement interdit de fumer à l'intérieur des hébergements. Fumeur autorisé en extérieur uniquement.</div>
+        </div>
+        <div class="info-card red">
+          <div class="info-card-icon">🐾</div>
+          <div class="info-card-title">Animaux</div>
+          <div class="info-card-value">Sur demande</div>
+          <div class="info-card-sub">Les animaux de compagnie sont acceptés sous conditions — merci de nous contacter au préalable pour validation.</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">🔕</div>
+          <div class="info-card-title">Nuisances sonores</div>
+          <div class="info-card-value">Calme après 22h</div>
+          <div class="info-card-sub">Merci de respecter la quiétude du domaine et du voisinage à partir de 22h. Les autres hébergements sont occupés.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTS URGENCE -->
+    <div class="info-section" id="contacts">
+      <h2 class="info-section-title"><span class="sec-icon">📞</span> Contacts importants</h2>
+      <div class="contact-grid">
+        <div class="contact-row">
+          <div class="contact-icon green">👨‍💼</div>
+          <div>
+            <div class="contact-name">Propriétaire</div>
+            <div class="contact-val">06 68 84 17 81</div>
+          </div>
+          <a href="tel:0668841781"><button class="contact-action">Appeler</button></a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon green">✉️</div>
+          <div>
+            <div class="contact-name">Email</div>
+            <div class="contact-val">traiteurlefebvre@orange.fr</div>
+          </div>
+          <a href="mailto:traiteurlefebvre@orange.fr"><button class="contact-action">Email</button></a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon red">🚨</div>
+          <div>
+            <div class="contact-name">Urgences (SAMU / Pompiers)</div>
+            <div class="contact-val">15 / 18 / 112</div>
+          </div>
+          <a href="tel:112"><button class="contact-action" style="background:var(--red)">Appeler</button></a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon red">👮</div>
+          <div>
+            <div class="contact-name">Gendarmerie</div>
+            <div class="contact-val">17</div>
+          </div>
+          <a href="tel:17"><button class="contact-action" style="background:var(--red)">Appeler</button></a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon blue">🏥</div>
+          <div>
+            <div class="contact-name">Hôpital de Dunkerque</div>
+            <div class="contact-val">03 28 28 59 00</div>
+          </div>
+          <a href="tel:0328285900"><button class="contact-action">Appeler</button></a>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon blue">💊</div>
+          <div>
+            <div class="contact-name">Pharmacie Bourbourg</div>
+            <div class="contact-val">03 28 22 20 13</div>
+          </div>
+          <a href="tel:0328222013"><button class="contact-action">Appeler</button></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAN -->
+    <div class="info-section" id="plan">
+      <h2 class="info-section-title"><span class="sec-icon">🗺️</span> Plan & Localisation</h2>
+      <div class="alert info" style="margin-bottom:16px">
+        <span class="alert-icon">📍</span>
+        <span><strong>Adresse :</strong> 2830 Route du Guindal, 59630 Bourbourg — Le domaine se trouve au bout du chemin, portail à gauche après le virage.</span>
+      </div>
+      <div class="map-container">
+        <iframe
+          src="https://maps.google.com/maps?q=2830+Route+du+Guindal,+59630+Bourbourg,+France&output=embed&z=15"
+          allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Plan des Gîtes du Guindal">
+        </iframe>
+      </div>
+      <div class="info-grid" style="margin-top:16px">
+        <div class="info-card">
+          <div class="info-card-icon">🚗</div>
+          <div class="info-card-title">Depuis Calais</div>
+          <div class="info-card-value">~25 min</div>
+          <div class="info-card-sub">A16 direction Dunkerque, sortie Bourbourg, suivre Route du Guindal</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">🚗</div>
+          <div class="info-card-title">Depuis Dunkerque</div>
+          <div class="info-card-value">~20 min</div>
+          <div class="info-card-sub">D916 direction Bourbourg, puis Route du Guindal à la sortie du village</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon">🚂</div>
+          <div class="info-card-title">En train</div>
+          <div class="info-card-value">Gare de Dunkerque</div>
+          <div class="info-card-sub">Puis taxi ou bus ligne C6 direction Bourbourg. Prévenez-nous, nous pouvons venir vous chercher.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-footer">
+      © 2024 Les Gîtes du Guindal · 2830 Route du Guindal, 59630 Bourbourg · 06 68 84 17 81
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Password
+  const PWD = 'guindal26';
+
+  document.getElementById('pwd').addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlock();
+  });
+
+  function unlock() {
+    const val = document.getElementById('pwd').value.trim().toLowerCase();
+    const input = document.getElementById('pwd');
+    const err = document.getElementById('lock-error');
+    if (val === PWD) {
+      document.getElementById('lock-screen').style.display = 'none';
+      document.getElementById('main').style.display = 'block';
+      sessionStorage.setItem('guindal_auth', '1');
+    } else {
+      input.classList.add('error');
+      err.style.display = 'block';
+      setTimeout(() => input.classList.remove('error'), 500);
+    }
+  }
+
+  // Auto-unlock if already authenticated this session
+  if (sessionStorage.getItem('guindal_auth') === '1') {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  }
+
+  // Section tabs
+  const NAV_H = 60 + 44;
+  document.querySelectorAll('.sec-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = document.getElementById(btn.dataset.sec);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - NAV_H - 12;
+      window.scrollTo({ top, behavior: 'smooth' });
+      document.querySelectorAll('.sec-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Auto-highlight sec tab on scroll
+  const secIds = ['horaires','acces','checkout','wifi','consignes','contacts','plan'];
+  const secIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const tab = document.querySelector(`.sec-tab[data-sec="${e.target.id}"]`);
+        if (tab) { document.querySelectorAll('.sec-tab').forEach(t=>t.classList.remove('active')); tab.classList.add('active'); }
+      }
+    });
+  }, { rootMargin: `-${NAV_H+10}px 0px -55% 0px`, threshold: 0 });
+  secIds.forEach(id => { const el=document.getElementById(id); if(el) secIo.observe(el); });
+
+  // Checklist
+  function toggle(item) {
+    const cb = item.querySelector('input');
+    cb.checked = !cb.checked;
+    item.classList.toggle('done', cb.checked);
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const items = document.querySelectorAll('.check-item');
+    const done  = document.querySelectorAll('.check-item.done').length;
+    const total = items.length;
+    document.getElementById('progress-text').textContent = `${done} / ${total} complété`;
+    document.getElementById('progress-fill').style.width = `${(done/total)*100}%`;
+  }
+
+  // Copy code
+  function copyCode(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copié !';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copier'; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+</script>
+</body>
+</html>

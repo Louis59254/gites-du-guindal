@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bonnes adresses – Les Gîtes du Guindal</title>
+  <meta name="description" content="Les meilleures adresses près des Gîtes du Guindal : restaurants, bars, supermarchés, artisans, marchés à Bourbourg, Gravelines et Dunkerque." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:     #1B4F5E;
+      --green-mid: #2A6978;
+      --green-lt:  #3D8FA3;
+      --amber:     #C4A035;
+      --amber-dk:  #A88520;
+      --cream:     #F7F2E8;
+      --white:     #FFFFFF;
+      --gray-50:   #F5F0E8;
+      --gray-100:  #EDE8DC;
+      --gray-200:  #D8D2C4;
+      --gray-400:  #9CA3AF;
+      --gray-600:  #4B5563;
+      --gray-800:  #1F2937;
+      --dark:      #0D1F27;
+      --red:       #E05252;
+      --orange:    #E07B2E;
+      --purple:    #6B5EA8;
+      --teal:      #2A8070;
+      --radius:    12px;
+      --shadow:    0 2px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-800); font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+
+    /* ── NAV ── */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; background: rgba(13,31,39,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 20px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--white); }
+    .nav-logo img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .nav-back { display: inline-flex; align-items: center; gap: 7px; font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.7); padding: 7px 14px; border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; transition: all 0.2s; }
+    .nav-back:hover { color: white; border-color: rgba(255,255,255,0.5); }
+    .nav-cta { background: var(--amber); color: var(--dark) !important; font-size: 0.82rem; font-weight: 600; padding: 8px 16px; border-radius: 20px; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--amber-dk); }
+    .nav-ham { display: none; flex-direction: column; gap: 5px; padding: 6px; background: none; border: none; cursor: pointer; }
+    .nav-ham span { display: block; width: 22px; height: 2px; background: white; border-radius: 2px; }
+    .nav-mobile { display: none; position: fixed; inset: 0; z-index: 199; background: var(--dark); padding: 80px 24px 32px; flex-direction: column; gap: 8px; }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a { font-size: 1.1rem; font-weight: 500; color: rgba(255,255,255,0.8); padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .nav-mobile .nav-cta { margin-top: 12px; display: block; text-align: center; padding: 14px; font-size: 1rem; border-radius: 10px; border: none; }
+
+    /* ── HERO ── */
+    .hero { padding-top: 64px; background: linear-gradient(135deg, #3D2A1A 0%, #6A3D18 50%, #2A1A0D 100%); position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: url('photo_prez_site_guindal_gites.jpg') center/cover no-repeat; opacity: 0.15; }
+    .hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 60%, rgba(196,160,53,0.15) 0%, transparent 60%); }
+    .hero-content { position: relative; z-index: 2; color: white; padding: 60px 20px 72px; max-width: 1180px; margin: 0 auto; }
+    .hero-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 12px; }
+    .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem,6vw,4rem); font-weight: 400; line-height: 1.1; margin-bottom: 16px; }
+    .hero-title em { font-style: italic; color: rgba(255,255,255,0.55); }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.65); max-width: 560px; line-height: 1.7; margin-bottom: 32px; }
+    .hero-cats { display: flex; flex-wrap: wrap; gap: 8px; }
+    .hero-cat { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); font-size: 0.8rem; padding: 7px 16px; border-radius: 20px; color: rgba(255,255,255,0.85); cursor: pointer; transition: all 0.2s; }
+    .hero-cat:hover, .hero-cat.active { background: var(--amber); border-color: var(--amber); color: var(--dark); font-weight: 600; }
+
+    /* ── ZONE NAV ── */
+    .zone-nav { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 64px; z-index: 100; }
+    .zone-nav-inner { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
+    .zone-nav-inner::-webkit-scrollbar { display: none; }
+    .zone-tab { flex-shrink: 0; padding: 16px 24px; font-size: 0.85rem; font-weight: 500; color: var(--gray-600); border-bottom: 3px solid transparent; cursor: pointer; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; white-space: nowrap; }
+    .zone-tab:hover { color: var(--green); }
+    .zone-tab.active { color: var(--green); border-bottom-color: var(--amber); font-weight: 600; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 64px 0; }
+    .section-alt { background: var(--white); }
+    .section-head { margin-bottom: 36px; }
+    .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-lt); margin-bottom: 6px; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem,3.5vw,2.3rem); color: var(--green); font-weight: 400; }
+    .section-sub { font-size: 0.9rem; color: var(--gray-600); margin-top: 6px; }
+
+    /* ── ZONE HEADER ── */
+    .zone-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 2px solid var(--gray-200); }
+    .zone-flag { font-size: 1.6rem; }
+    .zone-header h2 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--green); font-weight: 400; }
+    .zone-dist { font-size: 0.75rem; font-weight: 600; color: var(--white); background: var(--green-mid); padding: 3px 10px; border-radius: 20px; }
+
+    /* ── CATEGORY TABS ── */
+    .cat-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .cat-tab { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; padding: 7px 14px; border-radius: 8px; border: 1.5px solid transparent; cursor: pointer; transition: all 0.2s; }
+    .cat-tab.resto { background: rgba(224,82,82,0.1); border-color: rgba(224,82,82,0.3); color: var(--red); }
+    .cat-tab.bar   { background: rgba(107,94,168,0.1); border-color: rgba(107,94,168,0.3); color: var(--purple); }
+    .cat-tab.shop  { background: rgba(42,128,112,0.1); border-color: rgba(42,128,112,0.3); color: var(--teal); }
+    .cat-tab.marche{ background: rgba(196,160,53,0.1); border-color: rgba(196,160,53,0.3); color: var(--amber-dk); }
+
+    /* ── ADRESSE CARDS ── */
+    .adresses-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .adresse-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--gray-200); padding: 20px; transition: transform 0.2s, box-shadow 0.2s; }
+    .adresse-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+    .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+    .card-cat-badge { font-size: 0.65rem; font-weight: 600; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .badge-resto  { background: rgba(224,82,82,0.1);  color: var(--red); }
+    .badge-bar    { background: rgba(107,94,168,0.1); color: var(--purple); }
+    .badge-shop   { background: rgba(42,128,112,0.1); color: var(--teal); }
+    .badge-marche { background: rgba(196,160,53,0.15); color: var(--amber-dk); }
+    .badge-bio    { background: rgba(45,122,74,0.12); color: #2D7A4A; }
+    .card-stars { display: flex; align-items: center; gap: 4px; font-size: 0.78rem; font-weight: 600; color: var(--amber-dk); }
+    .card-name { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--green); margin-bottom: 4px; }
+    .card-type { font-size: 0.75rem; color: var(--gray-400); margin-bottom: 10px; }
+    .card-desc { font-size: 0.82rem; color: var(--gray-600); line-height: 1.6; margin-bottom: 12px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+    .card-tag { font-size: 0.68rem; background: var(--gray-50); border: 1px solid var(--gray-200); color: var(--gray-600); padding: 2px 8px; border-radius: 5px; }
+    .card-footer { display: flex; flex-direction: column; gap: 4px; padding-top: 10px; border-top: 1px solid var(--gray-100); }
+    .card-info { display: flex; align-items: center; gap: 7px; font-size: 0.75rem; color: var(--gray-500); }
+    .card-info strong { color: var(--gray-700); }
+    .card-highlight { background: var(--gray-50); border-left: 3px solid var(--amber); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 0.75rem; color: var(--gray-600); font-style: italic; margin-bottom: 12px; }
+
+    /* ── CONSEIL BOX ── */
+    .conseil-box { background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%); border-radius: 14px; padding: 28px 32px; color: white; margin-bottom: 40px; display: flex; gap: 20px; align-items: flex-start; }
+    .conseil-icon { font-size: 2rem; flex-shrink: 0; }
+    .conseil-box h4 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 6px; color: white; }
+    .conseil-box p { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.65; }
+
+    /* ── CTA ── */
+    .cta-bar { background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%); border-radius: 14px; padding: 36px 40px; display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-top: 16px; }
+    .cta-bar-text { flex: 1; }
+    .cta-bar-text h4 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: white; margin-bottom: 6px; }
+    .cta-bar-text p { font-size: 0.85rem; color: rgba(255,255,255,0.65); }
+    .btn { display: inline-flex; align-items: center; gap: 7px; font-family: inherit; font-size: 0.9rem; font-weight: 600; padding: 13px 24px; border-radius: 10px; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-amber { background: var(--amber); color: var(--dark); }
+    .btn-amber:hover { background: var(--amber-dk); transform: translateY(-2px); }
+    .btn-outline-white { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3); color: white; }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.22); }
+    .btn-sm { padding: 9px 16px; font-size: 0.82rem; border-radius: 8px; }
+    .btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green); }
+    .btn-outline:hover { background: var(--green); color: white; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .rd1 { transition-delay: 0.05s; } .rd2 { transition-delay: 0.12s; } .rd3 { transition-delay: 0.19s; } .rd4 { transition-delay: 0.26s; }
+
+    /* FOOTER */
+    footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 40px 20px; }
+    .footer-inner { max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 10px; }
+    .footer-logo img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .footer-logo span { color: var(--amber); }
+    .footer-mid { font-size: 0.78rem; text-align: center; line-height: 1.8; }
+    .footer-mid a { color: var(--amber); }
+    .footer-right { font-size: 0.78rem; text-align: right; line-height: 1.8; }
+
+    /* STICKY MOBILE */
+    .sticky-bar { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: var(--white); border-top: 1px solid var(--gray-200); padding: 12px 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); }
+    .sticky-bar-inner { display: flex; gap: 8px; }
+
+    @media (max-width: 700px) {
+      .nav-actions .nav-back, .nav-actions .nav-cta { display: none; }
+      .nav-ham { display: flex; }
+      .adresses-grid { grid-template-columns: 1fr; }
+      .cta-bar { flex-direction: column; padding: 24px; }
+      .sticky-bar { display: block; }
+      body { padding-bottom: 72px; }
+      .footer-right { display: none; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-mid { text-align: left; }
+      .conseil-box { flex-direction: column; padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="logo_gites_guindal.jpg" alt="Logo" />
+      Les Gîtes du Guindal
+    </a>
+    <div class="nav-actions">
+      <a href="index.html" class="nav-back">← Retour au site</a>
+      <a href="index.html#contact" class="nav-cta">Réserver</a>
+      <button class="nav-ham" id="hamBtn"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<div class="nav-mobile" id="mobileMenu">
+  <a href="index.html" onclick="closeMob()">🏡 Retour au site</a>
+  <a href="decouvrir.html" onclick="closeMob()">🗺️ Découvrir la région</a>
+  <a href="index.html#contact" onclick="closeMob()">📅 Réserver</a>
+  <a href="index.html#contact" class="nav-cta" onclick="closeMob()">✉ Demande directe</a>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <p class="hero-label">Guide pratique</p>
+    <h1 class="hero-title">Les bonnes <em>adresses</em></h1>
+    <p class="hero-sub">Restaurants, bars, supermarchés, artisans et marchés — notre sélection des meilleures adresses à Bourbourg et aux alentours.</p>
+    <div class="hero-cats">
+      <span class="hero-cat">🍽️ Restaurants</span>
+      <span class="hero-cat">🍺 Bars & Cafés</span>
+      <span class="hero-cat">🛒 Supermarchés</span>
+      <span class="hero-cat">🧀 Artisans & Marchés</span>
+      <span class="hero-cat">🐟 Spécialités flamandes</span>
+    </div>
+  </div>
+</header>
+
+<!-- ZONE NAV -->
+<div class="zone-nav">
+  <div class="zone-nav-inner">
+    <button class="zone-tab active" onclick="scrollTo('bourbourg')">📍 Bourbourg</button>
+    <button class="zone-tab" onclick="scrollTo('gravelines')">🏰 Gravelines</button>
+    <button class="zone-tab" onclick="scrollTo('dunkerque')">⚓ Dunkerque</button>
+    <button class="zone-tab" onclick="scrollTo('marches')">🌿 Marchés & Artisans</button>
+    <button class="zone-tab" onclick="scrollTo('specilaites')">🐟 Spécialités</button>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────────────── -->
+<!-- BOURBOURG -->
+<!-- ──────────────────────────────────────────────────────── -->
+<section class="section" id="bourbourg">
+  <div class="container">
+    <div class="zone-header reveal">
+      <span class="zone-flag">📍</span>
+      <div>
+        <h2>Bourbourg</h2>
+        <p style="font-size:0.82rem;color:var(--gray-600);margin-top:2px">À 2 km des gîtes · centre-ville</p>
+      </div>
+      <span class="zone-dist">2 km · 3 min</span>
+    </div>
+
+    <div class="cat-tabs reveal">
+      <span class="cat-tab resto">🍽️ Restaurants</span>
+      <span class="cat-tab bar">🍺 Bars & Cafés</span>
+      <span class="cat-tab shop">🛒 Courses</span>
+    </div>
+
+    <div class="adresses-grid">
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Restaurant</span>
+          <span class="card-stars">⭐ 4.5 <span style="color:var(--gray-400);font-weight:400">(174 avis)</span></span>
+        </div>
+        <div class="card-name">Au Clocher</div>
+        <div class="card-type">Cuisine française · $$</div>
+        <div class="card-highlight">"Excellente cuisine française à deux pas de Calais, produits frais, ambiance chaleureuse"</div>
+        <div class="card-desc">La meilleure table de Bourbourg. Cuisine traditionnelle française soignée dans un cadre convivial sur la place de l'Hôtel de Ville. Idéal pour un dîner en famille ou entre amis.</div>
+        <div class="card-tags">
+          <span class="card-tag">🥩 Viandes</span>
+          <span class="card-tag">🐟 Poissons</span>
+          <span class="card-tag">🍷 Cave à vins</span>
+          <span class="card-tag">Terrasse</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>4 Place de l'Hôtel de Ville, 59630 Bourbourg</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd2">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Restaurant · Traiteur</span>
+          <span class="card-stars">⭐ 4.4 <span style="color:var(--gray-400);font-weight:400">(31 avis)</span></span>
+        </div>
+        <div class="card-name">Chez Jeannine</div>
+        <div class="card-type">Cuisine maison · $</div>
+        <div class="card-highlight">"Cuisine bien faite, bon service, rapport qualité-prix imbattable"</div>
+        <div class="card-desc">Une adresse simple et authentique, cuisine du marché, plats généreux à prix doux. L'endroit idéal pour un repas convivial sans chichis, façon estaminet nordique.</div>
+        <div class="card-tags">
+          <span class="card-tag">🍟 Plats du jour</span>
+          <span class="card-tag">💶 Prix doux</span>
+          <span class="card-tag">Accueil chaleureux</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Bourbourg centre</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd3">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Auberge</span>
+          <span class="card-stars">⭐ 3.9 <span style="color:var(--gray-400);font-weight:400">(37 avis)</span></span>
+        </div>
+        <div class="card-name">Auberge de la Brique d'Or</div>
+        <div class="card-type">Cuisine française · $$-$$$</div>
+        <div class="card-highlight">"Une bonne adresse qui gagne à être connue"</div>
+        <div class="card-desc">Auberge traditionnelle aux accents flamands, spécialités régionales dans un cadre rustique et authentique. Bon choix pour découvrir la cuisine du Nord en dehors des circuits touristiques.</div>
+        <div class="card-tags">
+          <span class="card-tag">🍺 Bières régionales</span>
+          <span class="card-tag">Carbonnade</span>
+          <span class="card-tag">Flamiche</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Ancien chemin de Bergues, Bourbourg</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top">
+          <span class="card-cat-badge badge-bar">Café · Bar</span>
+        </div>
+        <div class="card-name">Café de l'Espérance</div>
+        <div class="card-type">Bar de village · $</div>
+        <div class="card-desc">Le café de quartier incontournable pour prendre un verre en fin de journée ou un café le matin. Ambiance locale garantie, clientèle de réguliers. Idéal pour s'immerger dans la vie bourbourgeoise.</div>
+        <div class="card-tags">
+          <span class="card-tag">☕ Café</span>
+          <span class="card-tag">🍺 Bières pression</span>
+          <span class="card-tag">Ambiance locale</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Place centrale, Bourbourg</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd2">
+        <div class="card-top">
+          <span class="card-cat-badge badge-shop">Supermarché</span>
+        </div>
+        <div class="card-name">Carrefour Market</div>
+        <div class="card-type">Supermarché · Courses du quotidien</div>
+        <div class="card-desc">Le supermarché le plus complet de Bourbourg. Rayons frais, boulangerie, boucherie, épicerie. Pratique pour les courses à l'arrivée ou en cours de séjour.</div>
+        <div class="card-tags">
+          <span class="card-tag">🥩 Boucherie</span>
+          <span class="card-tag">🥖 Boulangerie</span>
+          <span class="card-tag">🍷 Cave</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Chemin de la Vieille Colme, Bourbourg</strong></div>
+          <div class="card-info">🕐 <strong>Lun–Sam 8h30–19h30 · Dim 8h30–12h30</strong></div>
+          <div class="card-info">📞 <strong>03 28 62 30 31</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd3">
+        <div class="card-top">
+          <span class="card-cat-badge badge-shop">Supermarché</span>
+        </div>
+        <div class="card-name">Intermarché</div>
+        <div class="card-type">Supermarché · Grand choix</div>
+        <div class="card-desc">Grand supermarché avec un large rayon alimentation, produits régionaux nordiques bien représentés. Boucherie et poissonnerie sur place. Très apprécié des locaux pour sa taille et sa gamme.</div>
+        <div class="card-tags">
+          <span class="card-tag">🐟 Poissonnerie</span>
+          <span class="card-tag">Produits locaux</span>
+          <span class="card-tag">Grand choix</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>5 Rue Jean Varlet, 59630 Bourbourg</strong></div>
+          <div class="card-info">📞 <strong>03 28 22 17 51</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top">
+          <span class="card-cat-badge badge-shop">Artisan</span>
+        </div>
+        <div class="card-name">Au Petit Boucher</div>
+        <div class="card-type">Boucherie · Charcuterie · Traiteur</div>
+        <div class="card-desc">Boucherie artisanale avec volailles fermières, charcuterie maison, fromages affinés et plats traiteur préparés sur place. Idéal pour composer un repas maison de qualité.</div>
+        <div class="card-tags">
+          <span class="card-tag">🐓 Volailles fermières</span>
+          <span class="card-tag">🧀 Fromages</span>
+          <span class="card-tag">Plats préparés</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>14 Place du Gén. de Gaulle, Bourbourg</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd2">
+        <div class="card-top">
+          <span class="card-cat-badge badge-shop">Fromagerie</span>
+        </div>
+        <div class="card-name">Fromagerie du Centre</div>
+        <div class="card-type">Fromages artisanaux · Spécialités</div>
+        <div class="card-desc">Sélection de fromages affinés, beurres et produits laitiers artisanaux. Large choix de fromages du Nord et de toute la France. Une belle adresse pour constituer un plateau.</div>
+        <div class="card-tags">
+          <span class="card-tag">🧀 Maroilles AOP</span>
+          <span class="card-tag">Fromages locaux</span>
+          <span class="card-tag">Conseil affineur</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>16 bis Place du Gén. de Gaulle, Bourbourg</strong></div>
+          <div class="card-info">📞 <strong>03 28 20 51 85</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────────────── -->
+<!-- GRAVELINES -->
+<!-- ──────────────────────────────────────────────────────── -->
+<section class="section section-alt" id="gravelines">
+  <div class="container">
+    <div class="zone-header reveal">
+      <span class="zone-flag">🏰</span>
+      <div>
+        <h2>Gravelines</h2>
+        <p style="font-size:0.82rem;color:var(--gray-600);margin-top:2px">Cité fortifiée de Vauban · bord de mer</p>
+      </div>
+      <span class="zone-dist">~8 km · 10 min</span>
+    </div>
+
+    <div class="conseil-box reveal">
+      <span class="conseil-icon">💡</span>
+      <div>
+        <h4>Le conseil des gîtes</h4>
+        <p>Gravelines est la destination idéale pour un déjeuner face aux remparts ou une soirée en bord de mer à Petit-Fort-Philippe. Les restaurants de fruits de mer y sont particulièrement réputés — les moules arrivent directement de la côte.</p>
+      </div>
+    </div>
+
+    <div class="adresses-grid">
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Restaurant</span>
+        </div>
+        <div class="card-name">L'Éclusier</div>
+        <div class="card-type">Gastronomique · Viandes affinées · $$$</div>
+        <div class="card-highlight">Vue exceptionnelle sur le canal et les remparts de Vauban</div>
+        <div class="card-desc">Restaurant de caractère au cœur des fortifications. Spécialité de viandes affinées d'exception, réputées pour leur tendreté et leurs arômes concentrés. Cadre unique au bord du canal.</div>
+        <div class="card-tags">
+          <span class="card-tag">🥩 Viandes affinées</span>
+          <span class="card-tag">🏰 Vue remparts</span>
+          <span class="card-tag">Gastronomique</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Au cœur des fortifications, Gravelines</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd2">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Bistrot</span>
+        </div>
+        <div class="card-name">Bistrot Gourmet</div>
+        <div class="card-type">Bistronomique · $$</div>
+        <div class="card-desc">Table bistronomique à l'Hôtel du Beffroi, avec une carte régulièrement renouvelée mêlant cuisine traditionnelle nordique et touches contemporaines. Cadre élégant, service soigné.</div>
+        <div class="card-tags">
+          <span class="card-tag">Bistronomique</span>
+          <span class="card-tag">Carte de saison</span>
+          <span class="card-tag">🏨 Hôtel du Beffroi</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Hôtel du Beffroi, Gravelines</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd3">
+        <div class="card-top">
+          <span class="card-cat-badge badge-bar">Bar · Café</span>
+        </div>
+        <div class="card-name">La Civette Jean Bart</div>
+        <div class="card-type">Bar · Brasserie · $</div>
+        <div class="card-desc">Bar emblématique de Gravelines, ancré dans la vie locale depuis des décennies. Bières régionales en pression, carbonnades flamandes, ambiance authentique. Idéal pour l'apéritif après une visite des remparts.</div>
+        <div class="card-tags">
+          <span class="card-tag">🍺 Bières régionales</span>
+          <span class="card-tag">Carbonnade</span>
+          <span class="card-tag">Ambiance locale</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Centre-ville, Gravelines</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Restaurant exotique</span>
+        </div>
+        <div class="card-name">La Table des Îles</div>
+        <div class="card-type">Cuisine créole & cajun · $$</div>
+        <div class="card-desc">Une parenthèse dépaysante au cœur de la Flandre. Épices créoles, saveurs antillaises et cajuns, cadre chaleureux et coloré. Parfait pour changer des spécialités nordiques.</div>
+        <div class="card-tags">
+          <span class="card-tag">🌶️ Cuisine créole</span>
+          <span class="card-tag">Cajun</span>
+          <span class="card-tag">Dépaysant</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Gravelines centre</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd2">
+        <div class="card-top">
+          <span class="card-cat-badge badge-marche">Fromagerie ambulante</span>
+        </div>
+        <div class="card-name">La Roulotte des Gourmets</div>
+        <div class="card-type">Fromagerie · Épicerie fine</div>
+        <div class="card-desc">Large sélection de fromages affinés artisanaux, fermiers et régionaux. Présente sur les marchés de Gravelines et de la région. Conseils personnalisés du fromager pour composer votre plateau.</div>
+        <div class="card-tags">
+          <span class="card-tag">🧀 Fromages affinés</span>
+          <span class="card-tag">Artisanal</span>
+          <span class="card-tag">Marchés locaux</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Marchés de Gravelines et alentours</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────────────── -->
+<!-- DUNKERQUE -->
+<!-- ──────────────────────────────────────────────────────── -->
+<section class="section" id="dunkerque">
+  <div class="container">
+    <div class="zone-header reveal">
+      <span class="zone-flag">⚓</span>
+      <div>
+        <h2>Dunkerque</h2>
+        <p style="font-size:0.82rem;color:var(--gray-600);margin-top:2px">2e port de France · plage de Malo-les-Bains</p>
+      </div>
+      <span class="zone-dist">~15 km · 18 min</span>
+    </div>
+
+    <div class="conseil-box reveal">
+      <span class="conseil-icon">🐟</span>
+      <div>
+        <h4>Moules-frites & fruits de mer</h4>
+        <p>Dunkerque est LA référence pour les moules-frites dans le Nord. Plusieurs restaurants sur la digue de Malo-les-Bains servent des moules fraîches avec vue sur la Mer du Nord. À ne pas manquer lors d'une sortie à la journée.</p>
+      </div>
+    </div>
+
+    <div class="adresses-grid">
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Restaurant · Vue mer</span>
+        </div>
+        <div class="card-name">La Moule Rit</div>
+        <div class="card-type">Moules-frites · Fruits de mer · $$</div>
+        <div class="card-highlight">60+ recettes de moules · Vue panoramique sur la Mer du Nord</div>
+        <div class="card-desc">La référence des moules-frites à Dunkerque. Plus de 60 façons d'accommoder les moules, des frites maison et une vue imprenable sur la mer. Incontournable pour les amateurs de fruits de mer.</div>
+        <div class="card-tags">
+          <span class="card-tag">🦪 Moules 60 recettes</span>
+          <span class="card-tag">🍟 Frites maison</span>
+          <span class="card-tag">🌊 Vue mer</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Malo-les-Bains, Dunkerque</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd2">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Fruits de mer</span>
+        </div>
+        <div class="card-name">Le Roi de la Moule</div>
+        <div class="card-type">Poissons & fruits de mer · $$</div>
+        <div class="card-desc">Spécialiste des fruits de mer frais sur la digue de mer de Dunkerque. Ambiance maritime, produits arrivant directement du port, poissons grillés et plateaux de fruits de mer généreux.</div>
+        <div class="card-tags">
+          <span class="card-tag">🦐 Fruits de mer frais</span>
+          <span class="card-tag">🐠 Poissons grillés</span>
+          <span class="card-tag">Digue de mer</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>129 Digue de Mer, Dunkerque</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd3">
+        <div class="card-top">
+          <span class="card-cat-badge badge-resto">Brasserie nordique</span>
+        </div>
+        <div class="card-name">La Cocotte</div>
+        <div class="card-type">Cuisine flamande · Maître Restaurateur · $$</div>
+        <div class="card-highlight">Maître Restaurateur depuis 2010 — gage de qualité</div>
+        <div class="card-desc">Table renommée de Malo-les-Bains, cuisine nordique et flamande authentique, produits du terroir soigneusement sélectionnés. Label Maître Restaurateur, gage d'une cuisine faite maison.</div>
+        <div class="card-tags">
+          <span class="card-tag">🏅 Maître Restaurateur</span>
+          <span class="card-tag">Cuisine flamande</span>
+          <span class="card-tag">Terroir</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Malo-les-Bains, Dunkerque</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top">
+          <span class="card-cat-badge badge-bar">Estaminet</span>
+        </div>
+        <div class="card-name">L'Estaminet Flamand</div>
+        <div class="card-type">Estaminet · Spécialités régionales · $</div>
+        <div class="card-desc">Véritable estaminet dans la tradition flamande — bières artisanales, carbonnade, waterzooï, flamiche au Maroilles. Menus dès 10€, ambiance conviviale et décor authentique. L'adresse pour découvrir la vraie culture flamande.</div>
+        <div class="card-tags">
+          <span class="card-tag">🍺 Bières artisanales</span>
+          <span class="card-tag">Carbonnade flamande</span>
+          <span class="card-tag">Waterzooï</span>
+          <span class="card-tag">💶 Dès 10€</span>
+        </div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>4-6 Rue des Fusiliers Marins, Dunkerque</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────────────── -->
+<!-- MARCHÉS & ARTISANS -->
+<!-- ──────────────────────────────────────────────────────── -->
+<section class="section section-alt" id="marches">
+  <div class="container">
+    <div class="zone-header reveal">
+      <span class="zone-flag">🌿</span>
+      <div><h2>Marchés & Producteurs locaux</h2><p style="font-size:0.82rem;color:var(--gray-600);margin-top:2px">Produits frais, artisans, circuit court</p></div>
+    </div>
+
+    <div class="adresses-grid">
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top"><span class="card-cat-badge badge-marche">Marché hebdomadaire</span></div>
+        <div class="card-name">Marché de Bourbourg</div>
+        <div class="card-type">Marché plein air · Tous les mardis</div>
+        <div class="card-desc">Le marché hebdomadaire de Bourbourg anime la place chaque mardi matin. Légumes de saison, producteurs locaux, fromages, charcuteries, fleurs et vêtements. Ambiance typiquement flamande.</div>
+        <div class="card-tags"><span class="card-tag">🥦 Légumes saison</span><span class="card-tag">🧀 Fromages</span><span class="card-tag">🥩 Charcuterie</span></div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Place centrale, Bourbourg</strong></div>
+          <div class="card-info">🕐 <strong>Tous les mardis matin</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd2">
+        <div class="card-top"><span class="card-cat-badge badge-marche">Marché hebdomadaire</span></div>
+        <div class="card-name">Marché de Gravelines</div>
+        <div class="card-type">Grand marché · Mercredi & Samedi</div>
+        <div class="card-desc">Grand marché dans la cité fortifiée de Gravelines, réputé pour ses poissons frais arrivant du port de Petit-Fort-Philippe, ses fruits de mer et ses producteurs maraîchers de la région.</div>
+        <div class="card-tags"><span class="card-tag">🐟 Poissons frais</span><span class="card-tag">🦐 Fruits de mer</span><span class="card-tag">Maraîchers locaux</span></div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Centre-ville, Gravelines</strong></div>
+          <div class="card-info">🕐 <strong>Mercredi & Samedi matin</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd3">
+        <div class="card-top"><span class="card-cat-badge badge-bio">Producteur local</span></div>
+        <div class="card-name">Ferme du Grommendyck</div>
+        <div class="card-type">Charcuterie artisanale · Vente directe</div>
+        <div class="card-desc">Production artisanale de charcuteries de qualité supérieure — méthodes traditionnelles, ingrédients frais et locaux. Pâtés, rillettes, jambons et saucissons à emporter directement à la ferme.</div>
+        <div class="card-tags"><span class="card-tag">🥩 Charcuterie maison</span><span class="card-tag">Vente directe</span><span class="card-tag">Artisanal</span></div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Région de Bourbourg</strong></div>
+        </div>
+      </div>
+
+      <div class="adresse-card reveal rd1">
+        <div class="card-top"><span class="card-cat-badge badge-shop">Boulangerie</span></div>
+        <div class="card-name">Boulangerie Leclercq</div>
+        <div class="card-type">Boulangerie artisanale · Pâtisserie</div>
+        <div class="card-desc">Boulangerie artisanale réputée pour son très large choix de pains et de viennoiseries, service accueillant et innovation constante. Les clients locaux y viennent chaque matin pour les croissants et la baguette tradition.</div>
+        <div class="card-tags"><span class="card-tag">🥖 Pain tradition</span><span class="card-tag">🥐 Viennoiseries</span><span class="card-tag">Pâtisseries fines</span></div>
+        <div class="card-footer">
+          <div class="card-info">📍 <strong>Gravelines (11 km)</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────────────── -->
+<!-- SPÉCIALITÉS FLAMANDES -->
+<!-- ──────────────────────────────────────────────────────── -->
+<section class="section" id="specilaites">
+  <div class="container">
+    <div class="zone-header reveal">
+      <span class="zone-flag">🍺</span>
+      <div><h2>Spécialités à goûter absolument</h2><p style="font-size:0.82rem;color:var(--gray-600);margin-top:2px">Le meilleur de la gastronomie flamande</p></div>
+    </div>
+
+    <div class="adresses-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))">
+
+      <div class="adresse-card reveal rd1" style="border-top:3px solid var(--amber)">
+        <div class="bourg-item-icon" style="font-size:2rem;margin-bottom:10px">🦪</div>
+        <div class="card-name">Moules-frites</div>
+        <div class="card-desc">Le plat emblématique du Nord — moules fraîches de la Mer du Nord, frites belges croustillantes. En été, les moules sont à leur apogée. À goûter absolument à Dunkerque ou sur la côte.</div>
+        <div class="card-tags"><span class="card-tag">La Moule Rit (Dunkerque)</span><span class="card-tag">Le Roi de la Moule</span></div>
+      </div>
+
+      <div class="adresse-card reveal rd2" style="border-top:3px solid var(--amber)">
+        <div class="bourg-item-icon" style="font-size:2rem;margin-bottom:10px">🍲</div>
+        <div class="card-name">Carbonnade flamande</div>
+        <div class="card-desc">Bœuf mijoté à la bière brune, pain d'épices et moutarde — la recette flamande par excellence. Longuement cuit, fondant et parfumé. À retrouver dans tous les estaminets de la région.</div>
+        <div class="card-tags"><span class="card-tag">L'Estaminet Flamand</span><span class="card-tag">La Civette Jean Bart</span></div>
+      </div>
+
+      <div class="adresse-card reveal rd3" style="border-top:3px solid var(--amber)">
+        <div class="bourg-item-icon" style="font-size:2rem;margin-bottom:10px">🍺</div>
+        <div class="card-name">Bières artisanales du Nord</div>
+        <div class="card-desc">La région produit des bières d'exception : Trois Monts (Saint-Sylvestre-Cappel), La Choulette, Esquelbecq... Blondes, ambrées, brunes ou de garde — chacune raconte son terroir.</div>
+        <div class="card-tags"><span class="card-tag">Trois Monts</span><span class="card-tag">La Choulette</span><span class="card-tag">Saint-Sylvestre</span></div>
+      </div>
+
+      <div class="adresse-card reveal rd1" style="border-top:3px solid var(--amber)">
+        <div class="bourg-item-icon" style="font-size:2rem;margin-bottom:10px">🧀</div>
+        <div class="card-name">Maroilles AOP</div>
+        <div class="card-desc">Le fromage fort du Nord, à la croûte orangée et à la pâte crémeuse. Incontournable en flamiche (tarte au Maroilles) ou simplement sur un plateau avec du pain de campagne et une bière de garde.</div>
+        <div class="card-tags"><span class="card-tag">Fromagerie du Centre (Bourbourg)</span><span class="card-tag">La Roulotte des Gourmets</span></div>
+      </div>
+
+      <div class="adresse-card reveal rd2" style="border-top:3px solid var(--amber)">
+        <div class="bourg-item-icon" style="font-size:2rem;margin-bottom:10px">☕</div>
+        <div class="card-name">Chicorée de Bourbourg</div>
+        <div class="card-desc">Spécialité locale historique, la chicorée torréfiée de Bourbourg était autrefois exportée dans toute l'Europe. Aujourd'hui encore présente dans les épiceries locales, elle se boit chaude comme substitut au café.</div>
+        <div class="card-tags"><span class="card-tag">Marché du mardi</span><span class="card-tag">Épiceries locales</span></div>
+      </div>
+
+      <div class="adresse-card reveal rd3" style="border-top:3px solid var(--amber)">
+        <div class="bourg-item-icon" style="font-size:2rem;margin-bottom:10px">🐟</div>
+        <div class="card-name">Waterzooï de poisson</div>
+        <div class="card-desc">Soupe-ragoût flamande à base de poissons ou de poulet, légumes et crème fraîche. Recette authentique des estaminets du Nord, réconfortante et généreuse. La version poisson est particulièrement appréciée sur la côte.</div>
+        <div class="card-tags"><span class="card-tag">L'Estaminet Flamand</span><span class="card-tag">Restaurants côtiers</span></div>
+      </div>
+
+    </div>
+
+    <div class="cta-bar reveal">
+      <div class="cta-bar-text">
+        <h4>Prêt pour le séjour ?</h4>
+        <p>Réservez votre gîte et partez explorer les meilleures adresses de la Flandre maritime.</p>
+      </div>
+      <a href="index.html#contact" class="btn btn-amber">Réserver maintenant</a>
+      <a href="decouvrir.html" class="btn btn-outline-white">Guide de la région</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo"><img src="logo_gites_guindal.jpg" alt="Logo" />Les Gîtes <span>du Guindal</span></div>
+    <div class="footer-mid">© 2024 Les Gîtes du Guindal &nbsp;·&nbsp; <a href="tel:0668841781">06 68 84 17 81</a> &nbsp;·&nbsp; <a href="mailto:traiteurlefebvre@orange.fr">traiteurlefebvre@orange.fr</a></div>
+    <div class="footer-right">2830 Route du Guindal<br>59630 Bourbourg</div>
+  </div>
+</footer>
+
+<div class="sticky-bar">
+  <div class="sticky-bar-inner">
+    <a href="index.html" class="btn btn-outline btn-sm" style="flex:1;justify-content:center">← Retour</a>
+    <a href="index.html#contact" class="btn btn-amber btn-sm" style="flex:1;justify-content:center">Réserver</a>
+  </div>
+</div>
+
+<script>
+  document.getElementById('hamBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('open'));
+  function closeMob() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+  function scrollTo(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.zone-tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

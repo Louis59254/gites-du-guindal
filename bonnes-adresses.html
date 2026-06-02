@@ -72,9 +72,10 @@
     .zone-nav { background: var(--white); border-bottom: 1px solid var(--gray-200); position: sticky; top: 64px; z-index: 100; }
     .zone-nav-inner { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; }
     .zone-nav-inner::-webkit-scrollbar { display: none; }
-    .zone-tab { flex-shrink: 0; padding: 16px 24px; font-size: 0.85rem; font-weight: 500; color: var(--gray-600); border-bottom: 3px solid transparent; cursor: pointer; transition: all 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; white-space: nowrap; }
-    .zone-tab:hover { color: var(--green); }
-    .zone-tab.active { color: var(--green); border-bottom-color: var(--amber); font-weight: 600; }
+    .zone-tab { flex-shrink: 0; padding: 16px 24px; font-size: 0.85rem; font-weight: 500; color: var(--gray-600); border-bottom: 3px solid transparent; cursor: pointer; transition: color 0.2s, border-color 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: inherit; white-space: nowrap; }
+    .zone-tab:hover { color: var(--green); background: var(--gray-50); }
+    .zone-tab.active { color: var(--green); border-bottom-color: var(--amber); font-weight: 600; background: rgba(196,160,53,0.06); }
+    .zone-tab small { font-size: 0.68rem; opacity: 0.55; margin-left: 2px; }
 
     /* ── SECTIONS ── */
     .section { padding: 64px 0; }
@@ -216,11 +217,11 @@
 <!-- ZONE NAV -->
 <div class="zone-nav">
   <div class="zone-nav-inner">
-    <button class="zone-tab active" onclick="scrollTo('bourbourg')">📍 Bourbourg</button>
-    <button class="zone-tab" onclick="scrollTo('gravelines')">🏰 Gravelines</button>
-    <button class="zone-tab" onclick="scrollTo('dunkerque')">⚓ Dunkerque</button>
-    <button class="zone-tab" onclick="scrollTo('marches')">🌿 Marchés & Artisans</button>
-    <button class="zone-tab" onclick="scrollTo('specilaites')">🐟 Spécialités</button>
+    <button class="zone-tab active" data-target="bourbourg">📍 Bourbourg <small>2 km</small></button>
+    <button class="zone-tab" data-target="gravelines">🏰 Gravelines <small>8 km</small></button>
+    <button class="zone-tab" data-target="dunkerque">⚓ Dunkerque <small>15 km</small></button>
+    <button class="zone-tab" data-target="marches">🌿 Marchés & Artisans</button>
+    <button class="zone-tab" data-target="specilaites">🍺 Spécialités</button>
   </div>
 </div>
 
@@ -760,12 +761,40 @@
   document.getElementById('hamBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('open'));
   function closeMob() { document.getElementById('mobileMenu').classList.remove('open'); }
 
-  function scrollTo(id) {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Zone tab click navigation
+  const NAV_OFFSET = 64 + 49; // nav + zone-nav height
+  document.querySelectorAll('.zone-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.target;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET - 8;
+      window.scrollTo({ top, behavior: 'smooth' });
+      setActiveTab(btn);
+    });
+  });
+
+  function setActiveTab(btn) {
     document.querySelectorAll('.zone-tab').forEach(t => t.classList.remove('active'));
-    event.target.classList.add('active');
+    btn.classList.add('active');
   }
 
+  // Auto-highlight tab on scroll
+  const sections = ['bourbourg','gravelines','dunkerque','marches','specilaites'];
+  const scrollIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const tab = document.querySelector(`.zone-tab[data-target="${e.target.id}"]`);
+        if (tab) setActiveTab(tab);
+      }
+    });
+  }, { rootMargin: `-${NAV_OFFSET + 10}px 0px -55% 0px`, threshold: 0 });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) scrollIo.observe(el);
+  });
+
+  // Reveal on scroll
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });

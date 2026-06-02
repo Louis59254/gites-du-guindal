@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les Gîtes du Guindal – Bourbourg, Nord</title>
+  <meta name="description" content="10 hébergements de charme à Bourbourg (59) — gîtes et mobilhomes, jusqu'à 9 personnes par hébergement. Réservez sur Airbnb, Booking ou en direct." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET & BASE ───────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:     #1B4F5E;
+      --green-mid: #2A6978;
+      --green-lt:  #3D8FA3;
+      --amber:     #C4A035;
+      --amber-dk:  #A88520;
+      --cream:     #F7F2E8;
+      --white:     #FFFFFF;
+      --gray-50:   #F5F0E8;
+      --gray-100:  #EDE8DC;
+      --gray-200:  #D8D2C4;
+      --gray-400:  #9CA3AF;
+      --gray-600:  #4B5563;
+      --gray-800:  #1F2937;
+      --dark:      #0D1F27;
+      --radius:    12px;
+      --shadow:    0 2px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--gray-800);
+      font-size: 15px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; font-family: inherit; border: none; }
+
+    /* ── UTILITY ────────────────────────────────────── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ── NAV ────────────────────────────────────────── */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(250,248,244,0); transition: background 0.3s, box-shadow 0.3s;
+    }
+    .nav.solid { background: rgba(250,248,244,0.97); box-shadow: 0 1px 0 var(--gray-200); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; padding: 0 20px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem; color: var(--white);
+      transition: color 0.3s; white-space: nowrap;
+    }
+    .nav-logo img {
+      width: 40px; height: 40px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.3));
+      transition: filter 0.3s;
+    }
+    .nav.solid .nav-logo img { filter: none; }
+    .nav.solid .nav-logo { color: var(--green); }
+    .nav-actions { display: flex; gap: 8px; align-items: center; }
+    .nav-link {
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.01em;
+      color: rgba(255,255,255,0.85); padding: 6px 12px;
+      border-radius: 20px; transition: color 0.2s, background 0.2s;
+    }
+    .nav.solid .nav-link { color: var(--gray-600); }
+    .nav-link:hover { background: rgba(255,255,255,0.15); }
+    .nav.solid .nav-link:hover { background: var(--gray-100); color: var(--green); }
+    .nav-cta {
+      background: var(--amber); color: var(--dark) !important;
+      font-size: 0.82rem; font-weight: 600; padding: 8px 16px;
+      border-radius: 20px; transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--amber-dk); transform: translateY(-1px); }
+    /* hamburger */
+    .nav-ham { display: none; flex-direction: column; gap: 5px; padding: 6px; }
+    .nav-ham span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: background 0.3s; }
+    .nav.solid .nav-ham span { background: var(--green); }
+    /* mobile menu */
+    .nav-mobile {
+      display: none; position: fixed; inset: 0; z-index: 199;
+      background: var(--white); padding: 80px 24px 32px;
+      flex-direction: column; gap: 8px;
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 1.1rem; font-weight: 500; color: var(--gray-800);
+      padding: 14px 0; border-bottom: 1px solid var(--gray-100);
+    }
+    .nav-mobile .nav-cta {
+      margin-top: 12px; display: block; text-align: center;
+      padding: 14px; font-size: 1rem;
+    }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .hero {
+      position: relative; height: 100svh; min-height: 580px;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      background: url('photo_prez_site_guindal_gites.jpg') center/cover no-repeat;
+    }
+    .hero-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,31,39,0.88) 0%, rgba(13,31,39,0.45) 45%, rgba(13,31,39,0.15) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; padding: 40px 24px 100px;
+      color: var(--white); max-width: 700px;
+    }
+    .hero-logo {
+      width: 80px; height: 80px; border-radius: 50%;
+      object-fit: cover; margin-bottom: 16px;
+      border: 2px solid rgba(196,160,53,0.6);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.05em;
+      padding: 5px 12px; border-radius: 20px; margin-bottom: 16px; color: rgba(255,255,255,0.9);
+    }
+    .hero-badge::before { content: '●'; color: var(--amber); font-size: 0.5rem; }
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      line-height: 1.1; margin-bottom: 12px; font-weight: 400;
+    }
+    .hero-title em { font-style: italic; color: rgba(255,255,255,0.75); }
+    .hero-sub {
+      font-size: 1rem; color: rgba(255,255,255,0.7); margin-bottom: 28px;
+      font-weight: 300;
+    }
+    .hero-pills {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px;
+    }
+    .hero-pill {
+      background: rgba(255,255,255,0.12); backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.18);
+      font-size: 0.78rem; padding: 6px 14px; border-radius: 20px;
+      color: rgba(255,255,255,0.85);
+    }
+    .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 7px; font-family: inherit; font-size: 0.9rem; font-weight: 600; padding: 13px 24px; border-radius: 10px; transition: all 0.2s; border: none; cursor: pointer; }
+    .btn-amber { background: var(--amber); color: var(--dark); }
+    .btn-amber:hover { background: var(--amber-dk); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244,162,97,0.4); }
+    .btn-white { background: rgba(255,255,255,0.15); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.3); color: var(--white); }
+    .btn-white:hover { background: rgba(255,255,255,0.25); }
+    .btn-green { background: var(--green); color: var(--white); }
+    .btn-green:hover { background: var(--green-mid); transform: translateY(-2px); }
+    .btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green); }
+    .btn-outline:hover { background: var(--green); color: var(--white); }
+    .btn-sm { padding: 9px 16px; font-size: 0.82rem; border-radius: 8px; }
+    .hero-scroll-hint {
+      position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+      z-index: 2; color: rgba(255,255,255,0.5); font-size: 0.7rem; letter-spacing: 0.1em;
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      animation: bounce 2.5s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ── STATS BAR ───────────────────────────────────── */
+    .stats-bar { background: var(--green); color: var(--white); }
+    .stats-inner {
+      display: flex; justify-content: space-around; padding: 20px;
+      gap: 8px; flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-n {
+      font-family: 'DM Serif Display', serif; font-size: 1.8rem;
+      color: var(--amber); display: block; line-height: 1;
+    }
+    .stat-l { font-size: 0.72rem; color: rgba(255,255,255,0.65); letter-spacing: 0.05em; margin-top: 2px; }
+
+    /* ── SECTION BASE ───────────────────────────────── */
+    .section { padding: 72px 0; }
+    .section-sm { padding: 48px 0; }
+    .section-alt { background: var(--white); }
+    .section-dark { background: var(--green-mid); color: var(--white); }
+    .section-head { text-align: center; margin-bottom: 40px; }
+    .section-label {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--green-lt); margin-bottom: 8px;
+    }
+    .section-dark .section-label { color: var(--amber); }
+    .section-title {
+      font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--green); font-weight: 400; line-height: 1.2;
+    }
+    .section-dark .section-title { color: var(--white); }
+    .section-sub { font-size: 0.95rem; color: var(--gray-600); margin-top: 8px; max-width: 520px; margin-left: auto; margin-right: auto; }
+    .section-dark .section-sub { color: rgba(255,255,255,0.65); }
+
+    /* ── FILTER ─────────────────────────────────────── */
+    .filter-wrap {
+      display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px;
+      margin-bottom: 32px; -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .filter-wrap::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0; background: var(--white); border: 1.5px solid var(--gray-200);
+      color: var(--gray-600); font-size: 0.82rem; font-weight: 500;
+      padding: 8px 16px; border-radius: 20px; transition: all 0.2s; cursor: pointer;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--green); border-color: var(--green); color: var(--white);
+    }
+
+    /* ── GITE CARDS ─────────────────────────────────── */
+    .gites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .gite-card {
+      background: var(--white); border-radius: var(--radius);
+      box-shadow: var(--shadow); overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .gite-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .gite-photo {
+      position: relative; height: 220px; overflow: hidden;
+    }
+    .gite-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gite-card:hover .gite-photo img { transform: scale(1.04); }
+    .gite-photo-badges {
+      position: absolute; top: 12px; left: 12px; right: 12px;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .badge-tag {
+      background: var(--green); color: var(--white);
+      font-size: 0.68rem; font-weight: 600; padding: 4px 10px;
+      border-radius: 20px; letter-spacing: 0.04em;
+    }
+    .badge-tag.amber { background: var(--amber); color: var(--dark); }
+    .badge-cap {
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(6px);
+      color: var(--green); font-size: 0.78rem; font-weight: 700;
+      padding: 4px 10px; border-radius: 20px;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .gite-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+    .gite-name {
+      font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+      color: var(--green); font-weight: 400;
+    }
+    .gite-meta {
+      display: flex; gap: 12px; flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.78rem; color: var(--gray-600); font-weight: 500;
+    }
+    .meta-item svg { flex-shrink: 0; }
+    .gite-features {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .feat-chip {
+      background: var(--gray-100); color: var(--gray-600);
+      font-size: 0.72rem; font-weight: 500; padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .gite-divider { height: 1px; background: var(--gray-100); }
+    .gite-actions { display: flex; flex-direction: column; gap: 8px; }
+    .gite-platforms { display: flex; gap: 8px; }
+    .platform-btn {
+      flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 600; padding: 10px 12px;
+      border-radius: 8px; border: 1.5px solid var(--gray-200);
+      color: var(--gray-800); background: var(--white);
+      transition: all 0.2s; cursor: pointer; text-align: center;
+    }
+    .platform-btn:hover { border-color: var(--green); color: var(--green); background: rgba(13,59,46,0.04); }
+    .platform-btn.airbnb:hover { border-color: #FF5A5F; color: #FF5A5F; background: rgba(255,90,95,0.04); }
+    .direct-btn {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600; padding: 11px;
+      border-radius: 8px; background: var(--amber); color: var(--dark);
+      transition: all 0.2s; text-align: center;
+    }
+    .direct-btn:hover { background: var(--amber-dk); transform: translateY(-1px); }
+
+    /* ── DOMAINE ─────────────────────────────────────── */
+    .domaine-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start;
+    }
+
+    /* 5-photo Airbnb grid */
+    .domaine-gallery {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 240px 200px;
+      gap: 8px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .domaine-gallery img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .domaine-gallery img:hover { transform: scale(1.04); }
+    .gallery-main {
+      grid-column: 1; grid-row: 1 / 3; overflow: hidden;
+    }
+    .gallery-sub {
+      display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 240px 200px;
+      gap: 8px; grid-column: 2; grid-row: 1 / 3;
+    }
+    .gallery-sub .g-cell { position: relative; overflow: hidden; }
+    .gallery-sub .g-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .gallery-sub .g-cell:hover img { transform: scale(1.06); }
+    .gallery-sub .g-cell.more::after {
+      content: '+ voir photos'; position: absolute; inset: 0;
+      background: rgba(13,31,39,0.55); display: flex; align-items: center; justify-content: center;
+      color: var(--white); font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; display: flex; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .domaine-text .section-title { text-align: left; }
+    .domaine-text .section-label { text-align: left; }
+    .domaine-text p { color: var(--gray-600); margin-top: 12px; font-size: 0.95rem; line-height: 1.75; }
+    .equip-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px;
+    }
+    .equip-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--gray-50); padding: 12px 14px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 500; color: var(--gray-800);
+    }
+    .equip-icon { font-size: 1.1rem; }
+
+    /* ── HOW IT WORKS ────────────────────────────────── */
+    .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .how-card {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius); padding: 28px; text-align: center;
+    }
+    .how-num {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--amber); color: var(--dark); font-weight: 700; font-size: 1rem;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .how-title { font-size: 1rem; font-weight: 600; color: var(--white); margin-bottom: 8px; }
+    .how-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .how-platforms { display: flex; gap: 12px; justify-content: center; margin-top: 32px; flex-wrap: wrap; }
+    .platform-big {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      padding: 14px 24px; border-radius: 10px; color: var(--white);
+      font-weight: 600; font-size: 0.95rem; transition: all 0.2s;
+    }
+    .platform-big:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+    .platform-big.ab:hover { background: rgba(255,90,95,0.2); border-color: #FF5A5F; }
+    .platform-big.bk:hover { background: rgba(0,110,183,0.2); border-color: #006EB7; }
+
+    /* ── CONTACT FORM ────────────────────────────────── */
+    .contact-wrap {
+      display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start;
+    }
+    .contact-info h2 {
+      font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--green);
+      margin-bottom: 12px;
+    }
+    .contact-info p { color: var(--gray-600); font-size: 0.95rem; line-height: 1.7; margin-bottom: 24px; }
+    .contact-details { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .contact-row {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.9rem; color: var(--gray-700);
+    }
+    .c-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--gray-100); display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-row strong { color: var(--gray-800); font-weight: 600; }
+    .contact-socials { display: flex; gap: 10px; flex-wrap: wrap; }
+    .social-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gray-100); color: var(--gray-700);
+      font-size: 0.8rem; font-weight: 600; padding: 8px 14px; border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { background: var(--green); color: var(--white); }
+    /* form */
+    .form-card {
+      background: var(--white); border-radius: 16px; padding: 32px;
+      box-shadow: var(--shadow-lg);
+    }
+    .form-card h3 {
+      font-family: 'DM Serif Display', serif; font-size: 1.4rem;
+      color: var(--green); margin-bottom: 20px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+    .form-group label { font-size: 0.78rem; font-weight: 600; color: var(--gray-600); letter-spacing: 0.03em; }
+    .form-group input, .form-group select, .form-group textarea {
+      background: var(--gray-50); border: 1.5px solid var(--gray-200);
+      color: var(--gray-800); font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; padding: 11px 14px; border-radius: 8px; outline: none; width: 100%;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      border-color: var(--green-lt); background: var(--white);
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--gray-400); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%239CA3AF' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; cursor: pointer; }
+    .form-submit {
+      width: 100%; background: var(--green); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+      padding: 14px; border-radius: 10px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s; margin-top: 4px;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .form-submit:hover { background: var(--green-mid); transform: translateY(-2px); }
+    .form-note { font-size: 0.73rem; color: var(--gray-400); text-align: center; margin-top: 10px; }
+
+    /* ── RÉGION TOGGLE ───────────────────────────────── */
+    .region-toggle-wrap {
+      background: var(--white); padding: 48px 20px; text-align: center;
+      border-top: 1px solid var(--gray-200);
+    }
+    .region-toggle-wrap p { color: var(--gray-600); font-size: 0.9rem; margin-bottom: 20px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    #regionToggleBtn {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: var(--green); color: white;
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600;
+      padding: 14px 28px; border-radius: 10px; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    #regionToggleBtn:hover { background: var(--green-mid); transform: translateY(-2px); }
+
+    /* ── RÉGION ──────────────────────────────────────── */
+    #region {
+      background: var(--cream);
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    #region.open { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+    .region-close-wrap { text-align: center; padding-bottom: 8px; }
+    .region-close-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: transparent; border: 1.5px solid var(--gray-300);
+      color: var(--gray-600); font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem; font-weight: 500; padding: 8px 18px;
+      border-radius: 20px; cursor: pointer; transition: all 0.2s;
+    }
+    .region-close-btn:hover { border-color: var(--green); color: var(--green); }
+
+    .region-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      align-items: center; margin-bottom: 64px;
+    }
+    .region-intro-text h2 {
+      font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem,4vw,2.8rem);
+      color: var(--green); line-height: 1.2; margin-bottom: 14px;
+    }
+    .region-intro-text h2 em { font-style: italic; color: var(--green-mid); }
+    .region-intro-text p { color: var(--gray-600); font-size: 0.95rem; line-height: 1.78; margin-bottom: 10px; }
+    .region-distances {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .dist-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--white); border: 1px solid var(--gray-200);
+      padding: 12px 14px; border-radius: 10px;
+    }
+    .dist-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .dist-name { font-size: 0.82rem; font-weight: 600; color: var(--gray-800); line-height: 1.2; }
+    .dist-km { font-size: 0.72rem; color: var(--green-lt); font-weight: 600; }
+
+    /* Bourbourg highlights */
+    .bourbourg-block {
+      background: var(--white); border-radius: 16px; padding: 40px;
+      margin-bottom: 56px; border: 1px solid var(--gray-200);
+    }
+    .bourbourg-block h3 {
+      font-family: 'DM Serif Display', serif; font-size: 1.6rem;
+      color: var(--green); margin-bottom: 6px;
+    }
+    .bourbourg-block .sub { font-size: 0.82rem; color: var(--green-lt); font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 20px; }
+    .bourbourg-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .bourg-item {
+      background: var(--gray-50); border-radius: 10px; padding: 18px;
+      border-left: 3px solid var(--amber);
+    }
+    .bourg-item-icon { font-size: 1.4rem; margin-bottom: 8px; }
+    .bourg-item-title { font-size: 0.9rem; font-weight: 600; color: var(--gray-800); margin-bottom: 6px; }
+    .bourg-item-desc { font-size: 0.8rem; color: var(--gray-600); line-height: 1.55; }
+
+    /* Destination cards */
+    .region-subtitle {
+      font-family: 'DM Serif Display', serif; font-size: 1.5rem;
+      color: var(--green); margin-bottom: 24px;
+    }
+    .dest-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      margin-bottom: 56px;
+    }
+    .dest-card {
+      background: var(--white); border-radius: 14px; overflow: hidden;
+      box-shadow: var(--shadow); transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .dest-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .dest-header {
+      padding: 24px 22px 16px;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      position: relative;
+    }
+    .dest-header.nature { background: linear-gradient(135deg, #2D7A4A 0%, #1A5C35 100%); }
+    .dest-header.culture { background: linear-gradient(135deg, #4A4A8A 0%, #2D2D6A 100%); }
+    .dest-header.plage { background: linear-gradient(135deg, #1A6E8A 0%, #0D4D6B 100%); }
+    .dest-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3);
+      color: white; font-size: 0.68rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em;
+    }
+    .dest-emoji { font-size: 2rem; margin-bottom: 8px; display: block; }
+    .dest-name {
+      font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+      color: white; font-weight: 400; margin-bottom: 4px;
+    }
+    .dest-dist { font-size: 0.72rem; color: rgba(255,255,255,0.65); font-weight: 500; }
+    .dest-body { padding: 18px 22px; }
+    .dest-desc { font-size: 0.83rem; color: var(--gray-600); line-height: 1.65; margin-bottom: 14px; }
+    .dest-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dest-tag {
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      color: var(--gray-600); font-size: 0.7rem; font-weight: 500;
+      padding: 3px 9px; border-radius: 6px;
+    }
+
+    /* Practical info bar */
+    .practical-bar {
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      border-radius: 14px; padding: 32px 36px;
+      display: flex; gap: 32px; align-items: center; flex-wrap: wrap;
+      margin-top: 40px;
+    }
+    .practical-bar-text { flex: 1; }
+    .practical-bar-text h4 {
+      font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+      color: white; margin-bottom: 6px;
+    }
+    .practical-bar-text p { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+    .practical-bar .btn-amber { flex-shrink: 0; }
+
+    @media (max-width: 900px) {
+      .region-intro { grid-template-columns: 1fr; gap: 32px; }
+      .bourbourg-grid { grid-template-columns: 1fr 1fr; }
+      .dest-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .bourbourg-grid { grid-template-columns: 1fr; }
+      .region-distances { grid-template-columns: 1fr; }
+      .practical-bar { flex-direction: column; padding: 24px; }
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,0.7);
+      padding: 40px 20px;
+    }
+    .footer-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo {
+      font-family: 'DM Serif Display', serif; font-size: 1.1rem;
+      color: var(--white); display: flex; align-items: center; gap: 10px;
+    }
+    .footer-logo img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+    .footer-logo span { color: var(--amber); }
+    .footer-mid { font-size: 0.78rem; text-align: center; line-height: 1.8; }
+    .footer-mid a { color: var(--amber); transition: opacity 0.2s; }
+    .footer-mid a:hover { opacity: 0.8; }
+    .footer-right { font-size: 0.78rem; text-align: right; line-height: 1.8; }
+
+    /* ── STICKY MOBILE BAR ───────────────────────────── */
+    .sticky-bar {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: var(--white); border-top: 1px solid var(--gray-200);
+      padding: 12px 16px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    }
+    .sticky-bar-inner { display: flex; gap: 8px; }
+    .sticky-bar .btn { flex: 1; justify-content: center; }
+
+    /* ── TOAST ───────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--green); color: var(--white); padding: 12px 24px;
+      border-radius: 30px; font-size: 0.88rem; font-weight: 500;
+      opacity: 0; transition: all 0.35s; pointer-events: none; z-index: 999;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── REVEAL ANIMS ────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.18s; }
+    .reveal-d3 { transition-delay: 0.26s; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .domaine-grid { grid-template-columns: 1fr; }
+      .domaine-gallery { grid-template-columns: 1fr 1fr; grid-template-rows: 180px 150px; }
+      .gallery-main { grid-column: 1; grid-row: 1/3; }
+      .gallery-sub { grid-template-rows: 180px 150px; }
+      .how-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 32px; }
+    }
+    @media (max-width: 700px) {
+      .nav-actions .nav-link { display: none; }
+      .nav-actions .nav-cta { display: none; }
+      .nav-ham { display: flex; }
+      .gites-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .sticky-bar { display: block; }
+      body { padding-bottom: 72px; }
+      .footer-right { display: none; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-mid { text-align: left; }
+    }
+    @media (max-width: 480px) {
+      .hero-btns .btn:last-child { display: none; }
+      .hero-title { font-size: 2.2rem; }
+      .section { padding: 48px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="logo_gites_guindal.jpg" alt="Logo Les Gîtes du Guindal" />
+      Les Gîtes du Guindal
+    </a>
+    <div class="nav-actions">
+      <a href="#gites" class="nav-link">Hébergements</a>
+      <a href="#domaine" class="nav-link">Le domaine</a>
+      <a href="#region" class="nav-link" onclick="event.preventDefault();toggleRegion()">La région</a>
+      <a href="#reservation" class="nav-link">Réserver</a>
+      <a href="#contact" class="nav-cta btn">Demande directe</a>
+      <button class="nav-ham" id="hamBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- mobile menu -->
+<div class="nav-mobile" id="mobileMenu">
+  <a href="#gites" onclick="closeMob()">🏡 Hébergements</a>
+  <a href="#domaine" onclick="closeMob()">🌿 Le domaine</a>
+  <a href="#region" onclick="closeMob()">🗺️ La région</a>
+  <a href="#reservation" onclick="closeMob()">📅 Réserver</a>
+  <a href="#contact" class="nav-cta btn" onclick="closeMob()">✉ Demande directe</a>
+</div>
+
+<!-- ── HERO ─────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-content">
+    <img src="logo_gites_guindal.jpg" alt="Les Gîtes du Guindal" class="hero-logo" />
+    <div class="hero-badge">Bourbourg · Nord de France · 59630</div>
+    <h1 class="hero-title">Votre escapade<br><em>en Flandre</em></h1>
+    <p class="hero-sub">10 hébergements authentiques au cœur de la plaine flamande</p>
+    <div class="hero-pills">
+      <span class="hero-pill">👨‍👩‍👧‍👦 Jusqu'à 9 pers.</span>
+      <span class="hero-pill">🔒 Propriété sécurisée</span>
+      <span class="hero-pill">🎳 Pétanque & BBQ</span>
+      <span class="hero-pill">🚗 Parking privé</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#gites" class="btn btn-amber">Voir les hébergements ↓</a>
+      <a href="#contact" class="btn btn-white">Demander un devis</a>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>Découvrir</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ── STATS ─────────────────────────────────────────── -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <span class="stat-n">10</span>
+      <span class="stat-l">hébergements</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">9</span>
+      <span class="stat-l">pers. max / gîte</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">4</span>
+      <span class="stat-l">mobilhomes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-n">2km</span>
+      <span class="stat-l">de Bourbourg</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── HÉBERGEMENTS ───────────────────────────────────── -->
+<section class="section" id="gites">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label">Nos hébergements</p>
+      <h2 class="section-title">Choisissez votre espace</h2>
+      <p class="section-sub">Gîtes et mobilhomes entièrement équipés, pour 2 à 9 personnes</p>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-wrap" id="filterWrap"></div>
+
+    <!-- Grid -->
+    <div class="gites-grid" id="gitesGrid"></div>
+  </div>
+</section>
+
+<!-- ── DOMAINE ────────────────────────────────────────── -->
+<section class="section section-alt" id="domaine">
+  <div class="container">
+    <div class="domaine-grid">
+      <div class="domaine-gallery reveal">
+        <img class="gallery-main" src="photos-domaine/705439328_122128882281218070_5173801209526248940_n.jpg" alt="Vue du domaine" loading="lazy" />
+        <div class="gallery-sub">
+          <div class="g-cell"><img src="photos-domaine/image0.jpeg" alt="Jardins fleuris" loading="lazy" /></div>
+          <div class="g-cell"><img src="photos-domaine/704121274_122128882239218070_1636976744683129761_n.jpg" alt="Pelouse" loading="lazy" /></div>
+          <div class="g-cell"><img src="photos-domaine/image2.jpeg" alt="Terrain pétanque" loading="lazy" /></div>
+          <div class="g-cell more"><img src="photos-domaine/706029353_122128881603218070_6446197578228262963_n.jpg" alt="Mobilhome terrasse" loading="lazy" /></div>
+        </div>
+      </div>
+      <div class="domaine-text">
+        <p class="section-label">Le domaine</p>
+        <h2 class="section-title" style="text-align:left">Un cadre verdoyant pour tous</h2>
+        <p>Niché dans la plaine flamande, le domaine du Guindal vous accueille dans un esprit de convivialité. Propriété sécurisée, espaces communs généreux et parking privé pour des séjours sans souci.</p>
+        <p style="margin-top:8px">Idéal pour les familles, les groupes d'amis ou les séjours professionnels. Combinez plusieurs hébergements pour accueillir jusqu'à 50 personnes sur le même domaine.</p>
+        <div class="equip-grid reveal">
+          <div class="equip-item"><span class="equip-icon">🔒</span> Propriété sécurisée</div>
+          <div class="equip-item"><span class="equip-icon">📹</span> Vidéosurveillance</div>
+          <div class="equip-item"><span class="equip-icon">🎳</span> Terrain pétanque</div>
+          <div class="equip-item"><span class="equip-icon">🔥</span> Barbecues</div>
+          <div class="equip-item"><span class="equip-icon">🚗</span> Parking privé</div>
+          <div class="equip-item"><span class="equip-icon">🌿</span> Jardins & terrasses</div>
+          <div class="equip-item"><span class="equip-icon">👕</span> Lave-linge</div>
+          <div class="equip-item"><span class="equip-icon">🍳</span> Cuisines équipées</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── RÉGION TOGGLE ──────────────────────────────────── -->
+<div class="region-toggle-wrap" id="regionToggleWrap">
+  <p>Vous souhaitez explorer la Flandre maritime ? Découvrez notre guide des incontournables à proximité des gîtes.</p>
+  <button id="regionToggleBtn" onclick="toggleRegion()">
+    🗺️ Découvrir la région
+  </button>
+</div>
+
+<!-- ── RÉGION ─────────────────────────────────────────── -->
+<section class="section" id="region">
+  <div class="container">
+
+    <div class="region-close-wrap">
+      <button class="region-close-btn" onclick="toggleRegion()">✕ Fermer le guide</button>
+    </div>
+    <div class="section-head">
+      <p class="section-label">Guide touristique</p>
+      <h2 class="section-title">Découvrir la région</h2>
+      <p class="section-sub">Votre base idéale pour explorer la Flandre maritime, la Côte d'Opale et Dunkerque</p>
+    </div>
+
+    <!-- Intro + distances -->
+    <div class="region-intro reveal">
+      <div class="region-intro-text">
+        <h2>Au cœur de la <em>Flandre maritime</em></h2>
+        <p>Les Gîtes du Guindal se trouvent à 2 km de Bourbourg, une ville chargée d'histoire au carrefour de la plaine flamande. De là, tout le patrimoine de la côte Nord est accessible en moins de 30 minutes.</p>
+        <p>Mer du Nord à 10 km, Dunkerque à 15 km, Gravelines à 8 km, Calais à 23 km — un emplacement idéal pour combiner repos à la campagne et découvertes culturelles.</p>
+      </div>
+      <div class="region-distances">
+        <div class="dist-item">
+          <span class="dist-icon">🏰</span>
+          <div><div class="dist-name">Gravelines</div><div class="dist-km">~8 km · 10 min</div></div>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">⚓</span>
+          <div><div class="dist-name">Dunkerque</div><div class="dist-km">~15 km · 18 min</div></div>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">🌊</span>
+          <div><div class="dist-name">Mer du Nord</div><div class="dist-km">~10 km · 12 min</div></div>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">🚢</span>
+          <div><div class="dist-name">Calais</div><div class="dist-km">~23 km · 25 min</div></div>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">🐦</span>
+          <div><div class="dist-name">Platier d'Oye</div><div class="dist-km">~20 km · 22 min</div></div>
+        </div>
+        <div class="dist-item">
+          <span class="dist-icon">🏙️</span>
+          <div><div class="dist-name">Lille</div><div class="dist-km">~70 km · 55 min</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bourbourg en détail -->
+    <div class="bourbourg-block reveal">
+      <div class="sub">📍 À 2 km des gîtes</div>
+      <h3>Bourbourg — ville d'histoire</h3>
+      <p style="color:var(--gray-600);font-size:0.9rem;margin-bottom:20px;line-height:1.7">
+        Née du drainage des marais flamands, Bourbourg est l'une des plus anciennes cités de la plaine maritime du Nord.
+        Son nom vient du flamand <em>Broek burg</em> — la « forteresse des marais ». Longtemps disputée entre Anglais, Espagnols et Français,
+        elle est définitivement rattachée à la France en 1659 par le Traité des Pyrénées. Libérée en septembre 1944 par le Régiment de Maisonneuve canadien, elle commémore chaque année cette libération le premier dimanche de septembre.
+      </p>
+      <div class="bourbourg-grid">
+        <div class="bourg-item reveal reveal-d1">
+          <div class="bourg-item-icon">⛪</div>
+          <div class="bourg-item-title">Église Saint-Jean-Baptiste</div>
+          <div class="bourg-item-desc">Chef-d'œuvre gothique du XIII<sup>e</sup> siècle. Abrite <em>Le Chœur de Lumière</em>, ensemble monumental de 15 sculptures contemporaines du sculpteur britannique Sir Anthony Caro, déployées sur 450 m². Un dialogue saisissant entre art contemporain et architecture médiévale.</div>
+        </div>
+        <div class="bourg-item reveal reveal-d2">
+          <div class="bourg-item-icon">🔔</div>
+          <div class="bourg-item-title">Carillon historique</div>
+          <div class="bourg-item-desc">Installé dès le XVI<sup>e</sup> siècle, détruit en 1940, l'actuel carillon compte 50 cloches dont la plus grande pèse 500 kg. Il résonne régulièrement au-dessus de la place principale et constitue un symbole de la ville.</div>
+        </div>
+        <div class="bourg-item reveal reveal-d3">
+          <div class="bourg-item-icon">⛓️</div>
+          <div class="bourg-item-title">Ancienne Prison (1539)</div>
+          <div class="bourg-item-desc">Monument historique classé en brique blonde. Les cachots du XVII<sup>e</sup> siècle abritent encore des inscriptions gravées par des prisonniers de la Seconde Guerre mondiale. Un écomusée y retrace l'histoire judiciaire et carcérale de la ville.</div>
+        </div>
+        <div class="bourg-item reveal reveal-d1">
+          <div class="bourg-item-icon">🏛️</div>
+          <div class="bourg-item-title">Hôtel de Ville (Stadhuys)</div>
+          <div class="bourg-item-desc">Reconstruit entre 1821 et 1823 par l'architecte local Louis Deterre sur les fondations de l'ancien marché aux poissons. Belle façade en brique de style néoclassique flamand.</div>
+        </div>
+        <div class="bourg-item reveal reveal-d2">
+          <div class="bourg-item-icon">🧱</div>
+          <div class="bourg-item-title">Rue Jean Bart</div>
+          <div class="bourg-item-desc">Ensemble d'hôtels particuliers en brique blonde dorée du XVIII<sup>e</sup> siècle. Une promenade architecturale qui témoigne de la prospérité passée de la cité, notamment liée au commerce de la chicorée.</div>
+        </div>
+        <div class="bourg-item reveal reveal-d3">
+          <div class="bourg-item-icon">🌿</div>
+          <div class="bourg-item-title">Canal de Bourbourg & polders</div>
+          <div class="bourg-item-desc">Le canal relie Bourbourg aux ports intérieurs de Dunkerque. Autour de la ville s'étendent les polders flamands, paysage singulier de prairies gagnées sur la mer, idéal pour les balades à vélo et les randonnées.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Destinations alentours -->
+    <h3 class="region-subtitle reveal">Les incontournables à proximité</h3>
+
+    <div class="dest-grid">
+
+      <!-- Gravelines -->
+      <div class="dest-card reveal reveal-d1">
+        <div class="dest-header">
+          <span class="dest-badge">~8 km</span>
+          <span class="dest-emoji">🏰</span>
+          <div class="dest-name">Gravelines</div>
+          <div class="dest-dist">Un des plus beaux détours de France</div>
+        </div>
+        <div class="dest-body">
+          <p class="dest-desc">Cité fortifiée entre Dunkerque et Calais, Gravelines a conservé ses remparts étoilés conçus par Vauban au XVII<sup>e</sup> siècle — les mieux préservés du Nord. À explorer à pied, en bateau ou à vélo le long des fossés. La plage de Petit-Fort-Philippe avec ses cabines bleu et blanc est un bijou du littoral flamand.</p>
+          <div class="dest-tags">
+            <span class="dest-tag">🗺️ Fortifications Vauban</span>
+            <span class="dest-tag">🖼️ Musée du Dessin</span>
+            <span class="dest-tag">⛵ Balade en bateau</span>
+            <span class="dest-tag">🏖️ Plage Petit-Fort-Philippe</span>
+            <span class="dest-tag">🚴 Vélo sur les remparts</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dunkerque -->
+      <div class="dest-card reveal reveal-d2">
+        <div class="dest-header plage">
+          <span class="dest-badge">~15 km</span>
+          <span class="dest-emoji">⚓</span>
+          <div class="dest-name">Dunkerque</div>
+          <div class="dest-dist">Ville portuaire & carnaval légendaire</div>
+        </div>
+        <div class="dest-body">
+          <p class="dest-desc">Deuxième port de France, Dunkerque est célèbre pour son carnaval unique (jan.–mars), ses musées maritimes et son histoire lors de la Seconde Guerre mondiale. La plage de Malo-les-Bains avec ses villas Belle-Époque, le musée Opération Dynamo et la Duchesse Anne (plus grand trois-mâts conservé de France) sont incontournables.</p>
+          <div class="dest-tags">
+            <span class="dest-tag">🎭 Carnaval (jan-mars)</span>
+            <span class="dest-tag">⛵ Musée maritime</span>
+            <span class="dest-tag">🎖️ Opération Dynamo</span>
+            <span class="dest-tag">🏖️ Malo-les-Bains</span>
+            <span class="dest-tag">🎨 LAAC (art contemporain)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Platier d'Oye -->
+      <div class="dest-card reveal reveal-d3">
+        <div class="dest-header nature">
+          <span class="dest-badge">~20 km</span>
+          <span class="dest-emoji">🐦</span>
+          <div class="dest-name">Platier d'Oye</div>
+          <div class="dest-dist">Réserve naturelle nationale</div>
+        </div>
+        <div class="dest-body">
+          <p class="dest-desc">400 hectares de dunes, marais, prés humides et vasières sur la Côte d'Opale. Chaque année, plus de 230 espèces d'oiseaux y transitent — spatules blanches, avocettes élégantes, harles piettes... Trois sentiers balisés dont un accessible aux poussettes. Postes d'observation au cœur des dunes. Accès libre et gratuit.</p>
+          <div class="dest-tags">
+            <span class="dest-tag">🦢 Observation oiseaux</span>
+            <span class="dest-tag">🌾 Dunes & marais</span>
+            <span class="dest-tag">🥾 Randonnées balisées</span>
+            <span class="dest-tag">👨‍👩‍👧 Accès famille</span>
+            <span class="dest-tag">🆓 Entrée gratuite</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calais -->
+      <div class="dest-card reveal reveal-d1">
+        <div class="dest-header culture">
+          <span class="dest-badge">~23 km</span>
+          <span class="dest-emoji">🚢</span>
+          <div class="dest-name">Calais</div>
+          <div class="dest-dist">Porte de l'Angleterre</div>
+        </div>
+        <div class="dest-body">
+          <p class="dest-desc">Ville de passage et de commerce, Calais offre pourtant bien des surprises : la sculpture des Bourgeois de Calais de Rodin, le Musée de la Dentelle et de la Mode, et la tour de guet médiévale. Ses plages de sable fin et ses dunes s'étendent à perte de vue. Idéal pour une journée ou un aller-retour en Angleterre.</p>
+          <div class="dest-tags">
+            <span class="dest-tag">🗿 Bourgeois de Calais (Rodin)</span>
+            <span class="dest-tag">🪡 Musée de la Dentelle</span>
+            <span class="dest-tag">🏖️ Dunes & plages</span>
+            <span class="dest-tag">🌊 Vue sur les Falaises Blanches</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Côte d'Opale -->
+      <div class="dest-card reveal reveal-d2">
+        <div class="dest-header plage">
+          <span class="dest-badge">~15–30 km</span>
+          <span class="dest-emoji">🌊</span>
+          <div class="dest-name">Côte d'Opale</div>
+          <div class="dest-dist">Dunkerque → Boulogne-sur-Mer</div>
+        </div>
+        <div class="dest-body">
+          <p class="dest-desc">L'une des plus belles côtes de France — nommée pour la teinte opaline de ses eaux. De Dunkerque à Boulogne, se succèdent plages immenses, dunes sauvages et falaises. Bray-Dunes (la plage la plus nordique de France), la dune Dewulf (300 ha de dunes classées), le cap Blanc-Nez et le cap Gris-Nez sont des sites naturels remarquables.</p>
+          <div class="dest-tags">
+            <span class="dest-tag">🏄 Kitesurf & sports nautiques</span>
+            <span class="dest-tag">🌅 Couchers de soleil</span>
+            <span class="dest-tag">⛰️ Cap Blanc-Nez</span>
+            <span class="dest-tag">🏖️ Bray-Dunes</span>
+            <span class="dest-tag">🦅 Dune Dewulf</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Région en vrac -->
+      <div class="dest-card reveal reveal-d3">
+        <div class="dest-header" style="background:linear-gradient(135deg,#8A5A2A 0%,#6A3D18 100%)">
+          <span class="dest-badge">Région</span>
+          <span class="dest-emoji">🍺</span>
+          <div class="dest-name">Art de vivre flamand</div>
+          <div class="dest-dist">Gastronomie, culture & traditions</div>
+        </div>
+        <div class="dest-body">
+          <p class="dest-desc">La Flandre maritime a ses propres saveurs : la chicorée de Bourbourg, les bières artisanales (Trois Monts, Choulette, Saint-Sylvestre), le waterzoï de poisson, les moules-frites et les estaminets où l'on joue encore au hochet. Les marchés hebdomadaires (Bourbourg le mardi) regorgent de produits locaux et de spécialités flamandes.</p>
+          <div class="dest-tags">
+            <span class="dest-tag">🍻 Bières artisanales</span>
+            <span class="dest-tag">☕ Chicorée de Bourbourg</span>
+            <span class="dest-tag">🐟 Waterzoï & moules-frites</span>
+            <span class="dest-tag">🏪 Marché du mardi</span>
+            <span class="dest-tag">🎵 Estaminets flamands</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Practical CTA -->
+    <div class="practical-bar reveal">
+      <div class="practical-bar-text">
+        <h4>Prêt à explorer la région ?</h4>
+        <p>Réservez votre hébergement aux Gîtes du Guindal et partez à la découverte de la Flandre maritime.</p>
+      </div>
+      <a href="#contact" class="btn btn-amber">Réserver maintenant</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── RÉSERVER ───────────────────────────────────────── -->
+<section class="section section-dark" id="reservation">
+  <div class="container">
+    <div class="section-head">
+      <p class="section-label">Réservation</p>
+      <h2 class="section-title">2 façons de réserver</h2>
+      <p class="section-sub">Passez par vos plateformes habituelles ou contactez-nous directement pour un tarif personnalisé</p>
+    </div>
+
+    <div class="how-grid">
+      <div class="how-card reveal">
+        <div class="how-num">1</div>
+        <div class="how-title">Via Airbnb</div>
+        <div class="how-desc">Réservation instantanée, paiement sécurisé, avis clients vérifiés. Idéal pour les courts séjours.</div>
+      </div>
+      <div class="how-card reveal reveal-d1">
+        <div class="how-num">2</div>
+        <div class="how-title">Via Booking.com</div>
+        <div class="how-desc">Flexibilité d'annulation, large choix de dates, interface internationale.</div>
+      </div>
+      <div class="how-card reveal reveal-d2">
+        <div class="how-num">3</div>
+        <div class="how-title">Demande directe ✨</div>
+        <div class="how-desc">Contactez-nous pour des tarifs préférentiels, séjours longs, groupes ou occasions spéciales.</div>
+      </div>
+    </div>
+
+    <div class="how-platforms">
+      <a href="https://www.airbnb.fr" target="_blank" rel="noopener" class="platform-big ab">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 17.11c-.45 1.004-1.303 1.67-2.264 1.67-.627 0-1.246-.22-1.8-.655-.428-.33-.85-.792-1.264-1.375-.413.583-.836 1.045-1.264 1.375-.554.434-1.172.654-1.8.654-.96 0-1.814-.665-2.264-1.67-.512-1.14-.39-2.64.34-3.87l3.987-6.886c.26-.45.698-.708 1.133-.708.434 0 .872.258 1.133.708l3.988 6.886c.73 1.23.85 2.73.34 3.87z"/></svg>
+        Voir sur Airbnb
+      </a>
+      <a href="https://www.booking.com" target="_blank" rel="noopener" class="platform-big bk">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.162 11.836c.6-.72.9-1.62.9-2.7 0-1.44-.48-2.64-1.44-3.54-.96-.9-2.28-1.38-3.9-1.38H5.4v15.6h3.24v-5.82h3.42l3.06 5.82h3.72l-3.48-6.42c.66-.3 1.18-.74 1.8-1.56zM8.64 11.1V7.14h3.9c.9 0 1.56.24 2.04.72.48.48.72 1.08.72 1.8 0 .72-.24 1.32-.72 1.8-.48.48-1.14.72-2.04.72H8.64z"/></svg>
+        Voir sur Booking
+      </a>
+      <a href="#contact" class="platform-big" style="background:rgba(244,162,97,0.15);border-color:var(--amber);color:var(--amber)">
+        ✉ Demande directe
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ────────────────────────────────────────── -->
+<section class="section section-alt" id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="contact-info reveal">
+        <h2>Contactez-nous directement</h2>
+        <p>Pour les groupes, les longs séjours, les occasions spéciales ou simplement pour obtenir un devis personnalisé — nous répondons rapidement.</p>
+        <div class="contact-details">
+          <div class="contact-row">
+            <div class="c-icon">📞</div>
+            <div><strong>06 68 84 17 81</strong></div>
+          </div>
+          <div class="contact-row">
+            <div class="c-icon">✉</div>
+            <div><strong>traiteurlefebvre@orange.fr</strong></div>
+          </div>
+          <div class="contact-row">
+            <div class="c-icon">📍</div>
+            <div>2830 Route du Guindal<br>59630 Bourbourg</div>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <a href="https://www.airbnb.fr" target="_blank" class="social-btn">🏠 Airbnb</a>
+          <a href="https://www.booking.com" target="_blank" class="social-btn">📅 Booking.com</a>
+          <a href="https://www.facebook.com" target="_blank" class="social-btn">📘 Facebook</a>
+        </div>
+      </div>
+
+      <div class="form-card reveal reveal-d1">
+        <h3>Demande de réservation</h3>
+        <form id="contactForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prenom">Prénom *</label>
+              <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required />
+            </div>
+            <div class="form-group">
+              <label for="nom">Nom *</label>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="votre@email.fr" required />
+            </div>
+            <div class="form-group">
+              <label for="tel">Téléphone</label>
+              <input type="tel" id="tel" name="tel" placeholder="06 XX XX XX XX" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gite">Hébergement souhaité</label>
+            <select id="gite" name="gite">
+              <option value="">— Sélectionnez —</option>
+              <option>Gîte Zoé — 9 personnes</option>
+              <option>Gîte Zélya — 4 personnes</option>
+              <option>Gîte Owen — 3 personnes</option>
+              <option>Gîte Ambre — 4 personnes</option>
+              <option>Gîte Raphaël — 2 personnes</option>
+              <option>Gîte Clara — 2 personnes</option>
+              <option>Mobilhome Ruben — 6 personnes</option>
+              <option>Mobilhome Chloé — 6 personnes</option>
+              <option>Mobilhome Katalina — 6 personnes</option>
+              <option>Mobilhome Nella — 6 personnes</option>
+              <option>Plusieurs hébergements</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="arrivee">Date d'arrivée *</label>
+              <input type="date" id="arrivee" name="arrivee" required />
+            </div>
+            <div class="form-group">
+              <label for="depart">Date de départ *</label>
+              <input type="date" id="depart" name="depart" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nb">Nombre de personnes</label>
+              <select id="nb" name="nb">
+                <option value="">—</option>
+                <option>1</option><option>2</option><option>3</option>
+                <option>4</option><option>5</option><option>6</option>
+                <option>7</option><option>8</option><option>9</option>
+                <option>10+</option><option>15+</option><option>20+</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="occasion">Occasion</label>
+              <select id="occasion" name="occasion">
+                <option value="">—</option>
+                <option>Vacances en famille</option>
+                <option>Week-end entre amis</option>
+                <option>Séjour professionnel</option>
+                <option>Anniversaire / fête</option>
+                <option>Autre</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Questions, besoins particuliers, demande spéciale…"></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+            Envoyer ma demande
+          </button>
+          <p class="form-note">Réponse sous 24h · Aucun engagement</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <img src="logo_gites_guindal.jpg" alt="Logo" />
+      Les Gîtes <span>du Guindal</span>
+    </div>
+    <div class="footer-mid">
+      © 2024 Les Gîtes du Guindal &nbsp;·&nbsp;
+      <a href="tel:0668841781">06 68 84 17 81</a> &nbsp;·&nbsp;
+      <a href="mailto:traiteurlefebvre@orange.fr">traiteurlefebvre@orange.fr</a>
+    </div>
+    <div class="footer-right">
+      2830 Route du Guindal<br>59630 Bourbourg
+    </div>
+  </div>
+</footer>
+
+<!-- sticky mobile bar -->
+<div class="sticky-bar">
+  <div class="sticky-bar-inner">
+    <a href="#gites" class="btn btn-outline btn-sm" style="flex:1;justify-content:center">Voir les gîtes</a>
+    <a href="#contact" class="btn btn-amber btn-sm" style="flex:1;justify-content:center">Demande directe</a>
+  </div>
+</div>
+
+<!-- toast -->
+<div class="toast" id="toast">✓ Message envoyé !</div>
+
+<script>
+  /* ── DATA ─────────────────────────────────────────── */
+  const GITES = [
+    {
+      id:'zoe', name:'Gîte Zoé', img:'photos-gites/image2.png',
+      cap:9, rooms:4, type:'gite',
+      features:['Jardin privatif','Babyfoot & fléchettes','Lave-linge','Cuisine équipée'],
+      tag:'Le plus grand', tagColor:'',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'zelya', name:'Gîte Zélya', img:'photos-gites/image3.png',
+      cap:4, rooms:2, type:'gite',
+      features:['Terrasse privative','Barbecue privatif','Lave-linge','Cuisine équipée'],
+      tag:'Terrasse & BBQ', tagColor:'amber',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'owen', name:'Gîte Owen', img:'photos-gites/image4.png',
+      cap:3, rooms:1, type:'gite',
+      features:['Très lumineux','Lave-linge','Cuisine équipée'],
+      tag:'Lumineux', tagColor:'',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'clara', name:'Gîte Clara', img:'photos-gites/image5.png',
+      cap:2, rooms:1, type:'gite',
+      features:['Canapé-lit','Terrasse commune','Barbecue commun','Cuisine équipée'],
+      tag:'Cosy', tagColor:'amber',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'raphael', name:'Gîte Raphaël', img:'photos-gites/image6.png',
+      cap:2, rooms:1, type:'gite',
+      features:['Terrasse privative','Lave-linge','Cuisine équipée'],
+      tag:'Terrasse privée', tagColor:'',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'ambre', name:'Gîte Ambre', img:'photos-gites/image7.png',
+      cap:4, rooms:2, type:'gite',
+      features:['Terrasse privative','Lave-linge','Cuisine équipée'],
+      tag:'Chaleureux', tagColor:'amber',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'ruben', name:'Mobilhome Ruben', img:'photos-gites/image9.png',
+      cap:6, rooms:2, type:'mobilhome',
+      features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
+      tag:'Mobilhome', tagColor:'amber',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'chloe', name:'Mobilhome Chloé', img:'photos-gites/image10.png',
+      cap:6, rooms:2, type:'mobilhome',
+      features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
+      tag:'Mobilhome', tagColor:'amber',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'katalina', name:'Mobilhome Katalina', img:'photos-gites/image11.png',
+      cap:6, rooms:2, type:'mobilhome',
+      features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
+      tag:'Mobilhome', tagColor:'amber',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    },
+    {
+      id:'nella', name:'Mobilhome Nella', img:'photos-gites/image12.png',
+      cap:6, rooms:2, type:'mobilhome',
+      features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
+      tag:'Mobilhome', tagColor:'amber',
+      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+    }
+  ];
+
+  /* ── RENDER CARDS ─────────────────────────────────── */
+  function personIcon() {
+    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
+  }
+  function bedIcon() {
+    return `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20v-7a2 2 0 012-2h16a2 2 0 012 2v7"/><path d="M2 13V8a2 2 0 012-2h16a2 2 0 012 2v5"/></svg>`;
+  }
+  function renderCard(g) {
+    return `
+      <article class="gite-card reveal" data-type="${g.type}" data-cap="${g.cap}">
+        <div class="gite-photo">
+          <img src="${g.img}" alt="${g.name}" loading="lazy" />
+          <div class="gite-photo-badges">
+            <span class="badge-tag${g.tagColor ? ' '+g.tagColor : ''}">${g.tag}</span>
+            <span class="badge-cap">${personIcon()} ${g.cap} pers.</span>
+          </div>
+        </div>
+        <div class="gite-body">
+          <h3 class="gite-name">${g.name}</h3>
+          <div class="gite-meta">
+            <span class="meta-item">${personIcon()} ${g.cap} personnes</span>
+            <span class="meta-item">${bedIcon()} ${g.rooms} chambre${g.rooms > 1 ? 's' : ''}</span>
+          </div>
+          <div class="gite-features">
+            ${g.features.map(f => `<span class="feat-chip">${f}</span>`).join('')}
+          </div>
+          <div class="gite-divider"></div>
+          <div class="gite-actions">
+            <div class="gite-platforms">
+              <a href="${g.airbnb}" target="_blank" rel="noopener" class="platform-btn airbnb">
+                🏠 Airbnb
+              </a>
+              <a href="${g.booking}" target="_blank" rel="noopener" class="platform-btn">
+                📅 Booking
+              </a>
+            </div>
+            <a href="#contact" class="direct-btn" onclick="preselect('${g.name}')">
+              ✉ Demande directe
+            </a>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  /* ── FILTER ───────────────────────────────────────── */
+  const FILTERS = [
+    { label:'Tous', fn: ()=>true },
+    { label:'2–3 pers.', fn: g => g.cap <= 3 },
+    { label:'4 pers.', fn: g => g.cap === 4 },
+    { label:'6 pers.', fn: g => g.cap === 6 },
+    { label:'9 pers.', fn: g => g.cap >= 9 },
+    { label:'Gîtes', fn: g => g.type === 'gite' },
+    { label:'Mobilhomes', fn: g => g.type === 'mobilhome' }
+  ];
+
+  let activeFilter = 0;
+
+  function renderFilters() {
+    const wrap = document.getElementById('filterWrap');
+    wrap.innerHTML = FILTERS.map((f, i) =>
+      `<button class="filter-btn${i === activeFilter ? ' active' : ''}" onclick="setFilter(${i})">${f.label}</button>`
+    ).join('');
+  }
+
+  function setFilter(i) {
+    activeFilter = i;
+    renderFilters();
+    const grid = document.getElementById('gitesGrid');
+    const filtered = GITES.filter(FILTERS[i].fn);
+    grid.innerHTML = filtered.map(renderCard).join('');
+    observeReveals();
+  }
+
+  function preselect(name) {
+    const sel = document.getElementById('gite');
+    for (let o of sel.options) {
+      if (o.text.startsWith(name)) { sel.value = o.value; break; }
+    }
+  }
+
+  /* ── NAV SCROLL ───────────────────────────────────── */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('solid', window.scrollY > 60);
+  }, { passive: true });
+
+  /* ── HAMBURGER ────────────────────────────────────── */
+  const ham = document.getElementById('hamBtn');
+  const mob = document.getElementById('mobileMenu');
+  ham.addEventListener('click', () => mob.classList.toggle('open'));
+  function closeMob() { mob.classList.remove('open'); }
+
+  /* ── DATE CONSTRAINTS ─────────────────────────────── */
+  const today = new Date().toISOString().split('T')[0];
+  const arrEl = document.getElementById('arrivee');
+  const depEl = document.getElementById('depart');
+  arrEl.min = today;
+  arrEl.addEventListener('change', () => {
+    depEl.min = arrEl.value;
+    if (depEl.value && depEl.value <= arrEl.value) {
+      const d = new Date(arrEl.value);
+      d.setDate(d.getDate() + 1);
+      depEl.value = d.toISOString().split('T')[0];
+    }
+  });
+
+  /* ── FORM SUBMIT ──────────────────────────────────── */
+  function submitForm(e) {
+    e.preventDefault();
+    const g = id => document.getElementById(id).value;
+    const body = [
+      'Prénom : '         + g('prenom'),
+      'Nom : '            + g('nom'),
+      'Email : '          + g('email'),
+      'Téléphone : '      + g('tel'),
+      'Hébergement : '    + g('gite'),
+      "Arrivée : "        + g('arrivee'),
+      'Départ : '         + g('depart'),
+      'Voyageurs : '      + g('nb'),
+      'Occasion : '       + g('occasion'),
+      '',
+      'Message :',        g('message')
+    ].join('\n');
+    window.location.href =
+      'mailto:traiteurlefebvre@orange.fr'
+      + '?subject=' + encodeURIComponent('Demande de réservation — Les Gîtes du Guindal')
+      + '&body='    + encodeURIComponent(body);
+    showToast();
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  /* ── INTERSECTION OBSERVER ────────────────────────── */
+  function observeReveals() {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => io.observe(el));
+  }
+
+  /* ── RÉGION TOGGLE ────────────────────────────────── */
+  function toggleRegion() {
+    const section = document.getElementById('region');
+    const btn = document.getElementById('regionToggleBtn');
+    const isOpen = section.classList.toggle('open');
+    if (isOpen) {
+      btn.innerHTML = '✕ Fermer le guide';
+      setTimeout(() => section.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+      section.querySelectorAll('.reveal').forEach(e => e.classList.add('in'));
+    } else {
+      btn.innerHTML = '🗺️ Découvrir la région';
+      document.getElementById('regionToggleWrap').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  /* ── INIT ─────────────────────────────────────────── */
+  renderFilters();
+  document.getElementById('gitesGrid').innerHTML = GITES.map(renderCard).join('');
+  observeReveals();
+</script>
+</body>
+</html>

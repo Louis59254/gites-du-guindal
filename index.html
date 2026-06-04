@@ -438,6 +438,90 @@
 
 
 
+    /* ── BOOKING MODAL ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(13,31,39,0.6); backdrop-filter: blur(6px);
+      display: none; align-items: flex-start; justify-content: center;
+      padding: 24px; overflow-y: auto;
+      opacity: 0; transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open { display: flex; opacity: 1; }
+    .modal-box {
+      background: var(--cream); border-radius: 18px;
+      width: 100%; max-width: 920px; margin: auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+      transform: translateY(24px) scale(0.98);
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+      overflow: hidden;
+    }
+    .modal-overlay.open .modal-box { transform: none; }
+    .modal-head {
+      position: relative;
+      background: linear-gradient(135deg, var(--green) 0%, var(--green-mid) 100%);
+      color: white; padding: 28px 32px;
+    }
+    .modal-head-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      background: rgba(196,160,53,0.25); color: var(--amber);
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 10px;
+    }
+    .modal-title {
+      font-family: 'DM Serif Display', serif; font-size: 1.8rem;
+      font-weight: 400; line-height: 1.1;
+    }
+    .modal-meta {
+      display: flex; gap: 18px; flex-wrap: wrap; margin-top: 10px;
+      font-size: 0.82rem; color: rgba(255,255,255,0.75);
+    }
+    .modal-meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      color: white; font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.2s; line-height: 1;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.28); transform: rotate(90deg); }
+    .modal-features {
+      display: flex; flex-wrap: wrap; gap: 7px;
+      padding: 18px 32px; background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .modal-feat {
+      font-size: 0.74rem; font-weight: 500; color: var(--green);
+      background: var(--gray-50); border: 1px solid var(--gray-200);
+      padding: 5px 12px; border-radius: 7px;
+    }
+    .modal-engine { padding: 0; background: var(--cream); }
+    .modal-engine-label {
+      padding: 18px 32px 12px; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--green-lt);
+    }
+    .modal-engine iframe {
+      display: block; width: 100%; height: 600px; border: none;
+      background: white;
+    }
+    .modal-foot {
+      padding: 16px 32px; background: var(--white);
+      border-top: 1px solid var(--gray-200);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .modal-foot-text { font-size: 0.8rem; color: var(--gray-600); }
+    .modal-foot-text strong { color: var(--gray-800); }
+    body.modal-open { overflow: hidden; }
+    @media (max-width: 600px) {
+      .modal-overlay { padding: 0; }
+      .modal-box { border-radius: 0; min-height: 100vh; max-width: 100%; }
+      .modal-head { padding: 24px 20px; }
+      .modal-title { font-size: 1.5rem; }
+      .modal-features, .modal-engine-label, .modal-foot { padding-left: 20px; padding-right: 20px; }
+      .modal-engine iframe { height: 520px; }
+    }
+
     /* ── FOOTER ──────────────────────────────────────── */
     footer {
       background: var(--dark); color: rgba(255,255,255,0.7);
@@ -985,6 +1069,29 @@
   </div>
 </footer>
 
+<!-- ── BOOKING MODAL ──────────────────────────────────── -->
+<div class="modal-overlay" id="giteModal" onclick="if(event.target===this)closeGite()">
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <div class="modal-head">
+      <button class="modal-close" onclick="closeGite()" aria-label="Fermer">✕</button>
+      <span class="modal-head-tag" id="modalTag">Réservation directe</span>
+      <h2 class="modal-title" id="modalTitle">—</h2>
+      <div class="modal-meta" id="modalMeta"></div>
+    </div>
+    <div class="modal-features" id="modalFeatures"></div>
+    <div class="modal-engine">
+      <div class="modal-engine-label">📅 Disponibilités en temps réel</div>
+      <iframe id="modalIframe" src="" allowfullscreen
+        sandbox="allow-scripts allow-forms allow-same-origin allow-presentation allow-top-navigation"
+        title="Disponibilités"></iframe>
+    </div>
+    <div class="modal-foot">
+      <div class="modal-foot-text">Une question ? <strong>06 68 84 17 81</strong> · Réservation sans commission</div>
+      <a href="#contact" class="btn btn-outline btn-sm" onclick="closeGite()">✉ Demande personnalisée</a>
+    </div>
+  </div>
+</div>
+
 <!-- sticky mobile bar -->
 <div class="sticky-bar">
   <div class="sticky-bar-inner">
@@ -1004,70 +1111,70 @@
       cap:9, rooms:4, type:'gite',
       features:['Jardin privatif','Babyfoot & fléchettes','Lave-linge','Cuisine équipée'],
       tag:'Le plus grand', tagColor:'',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'zelya', name:'Gîte Zélya', img:'photos-gites/image3.png',
       cap:4, rooms:2, type:'gite',
       features:['Terrasse privative','Barbecue privatif','Lave-linge','Cuisine équipée'],
       tag:'Terrasse & BBQ', tagColor:'amber',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'owen', name:'Gîte Owen', img:'photos-gites/image4.png',
       cap:3, rooms:1, type:'gite',
       features:['Très lumineux','Lave-linge','Cuisine équipée'],
       tag:'Lumineux', tagColor:'',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'clara', name:'Gîte Clara', img:'photos-gites/image5.png',
       cap:2, rooms:1, type:'gite',
       features:['Canapé-lit','Terrasse commune','Barbecue commun','Cuisine équipée'],
       tag:'Cosy', tagColor:'amber',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'raphael', name:'Gîte Raphaël', img:'photos-gites/image6.png',
       cap:2, rooms:1, type:'gite',
       features:['Terrasse privative','Lave-linge','Cuisine équipée'],
       tag:'Terrasse privée', tagColor:'',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'ambre', name:'Gîte Ambre', img:'photos-gites/image7.png',
       cap:4, rooms:2, type:'gite',
       features:['Terrasse privative','Lave-linge','Cuisine équipée'],
       tag:'Chaleureux', tagColor:'amber',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'ruben', name:'Mobilhome Ruben', img:'photos-gites/image9.png',
       cap:6, rooms:2, type:'mobilhome',
       features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
       tag:'Mobilhome', tagColor:'amber',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'chloe', name:'Mobilhome Chloé', img:'photos-gites/image10.png',
       cap:6, rooms:2, type:'mobilhome',
       features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
       tag:'Mobilhome', tagColor:'amber',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'katalina', name:'Mobilhome Katalina', img:'photos-gites/image11.png',
       cap:6, rooms:2, type:'mobilhome',
       features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
       tag:'Mobilhome', tagColor:'amber',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     },
     {
       id:'nella', name:'Mobilhome Nella', img:'photos-gites/image12.png',
       cap:6, rooms:2, type:'mobilhome',
       features:['Canapé-lit','Terrasse','Barbecue commun','Cuisine équipée'],
       tag:'Mobilhome', tagColor:'amber',
-      airbnb:'https://www.airbnb.fr', booking:'https://www.booking.com'
+      shkey:''
     }
   ];
 
@@ -1099,13 +1206,50 @@
           </div>
           <div class="gite-divider"></div>
           <div class="gite-actions">
-            <a href="#booking" class="direct-btn" style="justify-content:center">
+            <button class="direct-btn" style="justify-content:center;width:100%;border:none" onclick="openGite('${g.id}')">
               📅 Voir les disponibilités & Réserver
-            </a>
+            </button>
           </div>
         </div>
       </article>`;
   }
+
+  /* ── BOOKING MODAL ────────────────────────────────── */
+  const SH_WEBKEY = 'JkkSQkK3bnEuihF7AVuQ0odeM';
+
+  function openGite(id) {
+    const g = GITES.find(x => x.id === id);
+    if (!g) return;
+
+    document.getElementById('modalTitle').textContent = g.name;
+    document.getElementById('modalTag').textContent = g.tag || 'Réservation directe';
+    document.getElementById('modalMeta').innerHTML =
+      `<span>${personIcon()} ${g.cap} personnes</span>` +
+      `<span>${bedIcon()} ${g.rooms} chambre${g.rooms > 1 ? 's' : ''}</span>`;
+    document.getElementById('modalFeatures').innerHTML =
+      g.features.map(f => `<span class="modal-feat">${f}</span>`).join('');
+
+    // Per-gîte calendar if property key set, else full engine
+    const src = g.shkey
+      ? `https://app.superhote.com/#/rental/${g.shkey}?lang=fr`
+      : `https://app.superhote.com/#/get-available-rentals/${SH_WEBKEY}?lang=fr`;
+    document.getElementById('modalIframe').src = src;
+
+    document.getElementById('giteModal').classList.add('open');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeGite() {
+    document.getElementById('giteModal').classList.remove('open');
+    document.body.classList.remove('modal-open');
+    // Clear iframe to stop loading / reset
+    setTimeout(() => { document.getElementById('modalIframe').src = ''; }, 300);
+  }
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeGite();
+  });
 
   /* ── FILTER ───────────────────────────────────────── */
   const FILTERS = [

@@ -287,11 +287,13 @@
     .gite-photo {
       position: relative; height: 220px; overflow: hidden;
     }
-    .gite-photo img {
+    .gite-photo .gp-img {
+      position: absolute; inset: 0;
       width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.4s ease;
+      opacity: 0; transition: opacity 0.9s ease, transform 0.4s ease;
     }
-    .gite-card:hover .gite-photo img { transform: scale(1.04); }
+    .gite-photo .gp-img.active { opacity: 1; }
+    .gite-card:hover .gite-photo .gp-img.active { transform: scale(1.04); }
     .gite-photo-badges {
       position: absolute; top: 12px; left: 12px; right: 12px;
       display: flex; justify-content: space-between; align-items: flex-start;
@@ -1243,9 +1245,10 @@
   }
   function renderCard(g) {
     return `
-      <article class="gite-card reveal" data-type="${g.type}" data-cap="${g.cap}">
+      <article class="gite-card reveal" data-type="${g.type}" data-cap="${g.cap}" data-id="${g.id}">
         <div class="gite-photo" onclick="openGite('${g.id}')">
-          <img src="${g.img}" alt="${g.name}" loading="lazy" />
+          <img class="gp-img gp-a active" src="${g.img}" alt="${g.name}" loading="lazy" />
+          <img class="gp-img gp-b" src="" alt="" loading="lazy" />
           <div class="gite-photo-badges">
             <span class="badge-tag${g.tagColor ? ' '+g.tagColor : ''}">${g.tag}</span>
             <span class="badge-cap">${personIcon()} ${g.cap} pers.</span>
@@ -1432,6 +1435,40 @@
     const filtered = GITES.filter(FILTERS[i].fn);
     grid.innerHTML = filtered.map(renderCard).join('');
     observeReveals();
+    startCardSlideshows();
+  }
+
+  /* ── CARD SLIDESHOWS ──────────────────────────────── */
+  let slideTimers = [];
+  function startCardSlideshows() {
+    slideTimers.forEach(t => clearInterval(t));
+    slideTimers = [];
+
+    [...document.querySelectorAll('.gite-card')].forEach((card, ci) => {
+      const g = GITES.find(x => x.id === card.dataset.id);
+      const photos = g && g.photos && g.photos.length > 1 ? g.photos : null;
+      if (!photos) return;
+
+      const state = { idx: 0, showA: true,
+        a: card.querySelector('.gp-a'), b: card.querySelector('.gp-b') };
+
+      const advance = () => {
+        if (document.hidden) return;
+        state.idx = (state.idx + 1) % photos.length;
+        const incoming = state.showA ? state.b : state.a;
+        const outgoing = state.showA ? state.a : state.b;
+        incoming.src = photos[state.idx];
+        incoming.classList.add('active');
+        outgoing.classList.remove('active');
+        state.showA = !state.showA;
+      };
+
+      // staggered start so cards don't all flip at once
+      setTimeout(() => {
+        advance();
+        slideTimers.push(setInterval(advance, 3000));
+      }, ci * 500);
+    });
   }
 
   function preselect(name) {
@@ -1511,6 +1548,7 @@
   renderFilters();
   document.getElementById('gitesGrid').innerHTML = GITES.map(renderCard).join('');
   observeReveals();
+  startCardSlideshows();
 </script>
 </body>
 </html>

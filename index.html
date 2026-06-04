@@ -157,6 +157,37 @@
       color: rgba(255,255,255,0.85);
     }
     .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* Hero search widget */
+    .hero-search {
+      display: flex; align-items: stretch; gap: 0;
+      background: rgba(255,255,255,0.97); border-radius: 14px;
+      padding: 8px; margin-top: 28px; max-width: 720px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    }
+    .hs-field { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 8px 16px; min-width: 0; }
+    .hs-field label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 3px; }
+    .hs-field input, .hs-field select {
+      border: none; background: transparent; outline: none;
+      font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 500;
+      color: var(--gray-800); width: 100%; cursor: pointer; padding: 0;
+      -webkit-appearance: none; appearance: none;
+    }
+    .hs-sep { width: 1px; background: var(--gray-200); margin: 8px 0; flex-shrink: 0; }
+    .hs-btn {
+      flex-shrink: 0; background: var(--amber); color: var(--dark);
+      border: none; border-radius: 10px; padding: 0 28px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+    .hs-btn:hover { background: var(--amber-dk); }
+    @media (max-width: 680px) {
+      .hero-search { flex-wrap: wrap; gap: 4px; padding: 12px; }
+      .hs-field { flex: 1 1 calc(50% - 4px); padding: 8px 12px; }
+      .hs-sep { display: none; }
+      .hs-guests { flex: 1 1 100%; border-top: 1px solid var(--gray-200); }
+      .hs-btn { flex: 1 1 100%; padding: 13px; margin-top: 4px; }
+    }
     .btn { display: inline-flex; align-items: center; gap: 7px; font-family: inherit; font-size: 0.9rem; font-weight: 600; padding: 13px 24px; border-radius: 10px; transition: all 0.2s; border: none; cursor: pointer; }
     .btn-amber { background: var(--amber); color: var(--dark); }
     .btn-amber:hover { background: var(--amber-dk); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(244,162,97,0.4); }
@@ -665,9 +696,37 @@
       <span class="hero-pill">🚗 Parking privé</span>
     </div>
     <div class="hero-btns">
-      <button class="btn btn-amber" onclick="openAllEngine()" style="border:none;cursor:pointer;font-family:inherit">📅 Réserver maintenant</button>
       <a href="#gites" class="btn btn-white">Voir les hébergements ↓</a>
     </div>
+
+    <!-- Search widget -->
+    <form class="hero-search" onsubmit="heroSearch(event)">
+      <div class="hs-field">
+        <label>Arrivée</label>
+        <input type="date" id="hs_checkin" required />
+      </div>
+      <div class="hs-sep"></div>
+      <div class="hs-field">
+        <label>Départ</label>
+        <input type="date" id="hs_checkout" required />
+      </div>
+      <div class="hs-sep"></div>
+      <div class="hs-field hs-guests">
+        <label>Voyageurs</label>
+        <select id="hs_adults">
+          <option value="1">1 adulte</option>
+          <option value="2" selected>2 adultes</option>
+          <option value="3">3 adultes</option>
+          <option value="4">4 adultes</option>
+          <option value="5">5 adultes</option>
+          <option value="6">6 adultes</option>
+          <option value="7">7 adultes</option>
+          <option value="8">8 adultes</option>
+          <option value="9">9 adultes</option>
+        </select>
+      </div>
+      <button type="submit" class="hs-btn">🔍 Rechercher</button>
+    </form>
   </div>
   <div class="hero-scroll-hint">
     <span>Découvrir</span>
@@ -1134,7 +1193,7 @@
     document.body.classList.add('modal-open');
   }
 
-  function openAllEngine() {
+  function openAllEngine(opts) {
     document.getElementById('modalTitle').textContent = 'Tous nos hébergements';
     document.getElementById('modalTag').textContent = 'Disponibilités & réservation';
     document.getElementById('modalMeta').innerHTML =
@@ -1142,11 +1201,43 @@
     document.getElementById('modalFeatures').innerHTML =
       ['Gîtes 2 à 9 pers.','Mobilhomes','Paiement sécurisé','Sans commission']
         .map(f => `<span class="modal-feat">${f}</span>`).join('');
-    document.getElementById('modalIframe').src =
-      `https://app.superhote.com/#/get-available-rentals/${SH_WEBKEY}?lang=fr`;
+
+    let src = `https://app.superhote.com/#/get-available-rentals/${SH_WEBKEY}?lang=fr`;
+    if (opts && opts.checkin) {
+      src += `&startDate=${opts.checkin}&endDate=${opts.checkout}`
+           + `&adultsNumber=${opts.adults || 2}&childrenNumber=${opts.children || 0}`;
+    }
+    document.getElementById('modalIframe').src = src;
     document.getElementById('giteModal').classList.add('open');
     document.body.classList.add('modal-open');
   }
+
+  function heroSearch(e) {
+    e.preventDefault();
+    openAllEngine({
+      checkin:  document.getElementById('hs_checkin').value,
+      checkout: document.getElementById('hs_checkout').value,
+      adults:   document.getElementById('hs_adults').value,
+      children: 0,
+    });
+  }
+
+  // Hero search date constraints
+  (function() {
+    const today = new Date().toISOString().split('T')[0];
+    const ci = document.getElementById('hs_checkin');
+    const co = document.getElementById('hs_checkout');
+    if (ci && co) {
+      ci.min = today;
+      ci.addEventListener('change', () => {
+        co.min = ci.value;
+        if (co.value && co.value <= ci.value) {
+          const d = new Date(ci.value); d.setDate(d.getDate()+1);
+          co.value = d.toISOString().split('T')[0];
+        }
+      });
+    }
+  })();
 
   function closeGite() {
     document.getElementById('giteModal').classList.remove('open');

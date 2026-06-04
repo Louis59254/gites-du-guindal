@@ -704,18 +704,152 @@
 
 <section id="booking" style="background:var(--cream);padding:0 0 72px">
   <div style="max-width:1180px;margin:0 auto;padding:0 20px">
+
+    <!-- ── SEARCH BAR ── -->
+    <div id="searchBar" style="
+      background:var(--white);border-radius:16px;
+      box-shadow:0 4px 32px rgba(0,0,0,0.1);
+      padding:28px 32px;margin-bottom:24px;
+      border:1px solid var(--gray-200)">
+      <p style="font-size:0.7rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--green-lt);margin-bottom:16px">🔍 Recherche rapide</p>
+      <form id="searchForm" onsubmit="doSearch(event)" style="display:grid;grid-template-columns:1fr 1fr 120px 120px auto;gap:12px;align-items:end">
+        <div>
+          <label style="display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px">Arrivée</label>
+          <input type="date" id="s_checkin" style="
+            width:100%;padding:11px 14px;border:1.5px solid var(--gray-200);
+            border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+            color:var(--gray-800);background:var(--gray-50);outline:none;
+            transition:border-color 0.2s" required />
+        </div>
+        <div>
+          <label style="display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px">Départ</label>
+          <input type="date" id="s_checkout" style="
+            width:100%;padding:11px 14px;border:1.5px solid var(--gray-200);
+            border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+            color:var(--gray-800);background:var(--gray-50);outline:none;
+            transition:border-color 0.2s" required />
+        </div>
+        <div>
+          <label style="display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px">Adultes</label>
+          <div style="display:flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);border-radius:8px;background:var(--gray-50);padding:8px 10px">
+            <button type="button" onclick="adj('s_adults',-1)" style="width:24px;height:24px;border-radius:50%;border:1px solid var(--gray-200);background:white;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">−</button>
+            <input type="number" id="s_adults" value="2" min="1" max="20" style="width:100%;text-align:center;border:none;background:transparent;font-size:0.9rem;font-weight:600;color:var(--gray-800);outline:none" />
+            <button type="button" onclick="adj('s_adults',1)"  style="width:24px;height:24px;border-radius:50%;border:1px solid var(--gray-200);background:white;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">+</button>
+          </div>
+        </div>
+        <div>
+          <label style="display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-400);margin-bottom:6px">Enfants</label>
+          <div style="display:flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);border-radius:8px;background:var(--gray-50);padding:8px 10px">
+            <button type="button" onclick="adj('s_children',-1)" style="width:24px;height:24px;border-radius:50%;border:1px solid var(--gray-200);background:white;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">−</button>
+            <input type="number" id="s_children" value="0" min="0" max="10" style="width:100%;text-align:center;border:none;background:transparent;font-size:0.9rem;font-weight:600;color:var(--gray-800);outline:none" />
+            <button type="button" onclick="adj('s_children',1)"  style="width:24px;height:24px;border-radius:50%;border:1px solid var(--gray-200);background:white;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">+</button>
+          </div>
+        </div>
+        <button type="submit" style="
+          background:var(--green);color:white;border:none;
+          padding:11px 24px;border-radius:8px;font-family:'DM Sans',sans-serif;
+          font-size:0.88rem;font-weight:600;cursor:pointer;
+          transition:background 0.2s,transform 0.2s;white-space:nowrap">
+          Voir les dispo →
+        </button>
+      </form>
+    </div>
+
+    <!-- ── IFRAME SUPERHOTE ── -->
     <iframe
       id="bookingengine"
-      allowfullscreen=""
-      src="https://app.superhote.com/#/get-available-rentals/JkkSQkK3bnEuihF7AVuQ0odeM"
+      allowfullscreen="allowfullscreen"
+      src=""
       style="display:block;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.08)"
       width="100%"
-      height="4000"
+      height="5500"
       frameborder="0"
+      scrolling="no"
       sandbox="allow-scripts allow-forms allow-same-origin allow-presentation allow-top-navigation">
     </iframe>
+
   </div>
 </section>
+
+<style>
+  @media(max-width:800px){
+    #searchForm { grid-template-columns:1fr 1fr !important; }
+    #searchForm button[type="submit"] { grid-column:1/-1; }
+  }
+  @media(max-width:500px){
+    #searchForm { grid-template-columns:1fr !important; }
+    #searchBar { padding:20px 16px !important; }
+  }
+  #s_checkin:focus, #s_checkout:focus { border-color:var(--green-lt) !important; background:white !important; }
+  #searchForm button[type="submit"]:hover { background:var(--green-mid) !important; transform:translateY(-2px); }
+</style>
+
+<script>
+  // ── SUPERHOTE BOOKING ENGINE ──────────────────────────
+  (function() {
+    var webKey  = 'JkkSQkK3bnEuihF7AVuQ0odeM';
+    var url     = new URL(window.location.href);
+    var appart  = url.searchParams.get('appart');
+    var checkin  = url.searchParams.get('checkin');
+    var checkout = url.searchParams.get('checkout');
+    var adults   = url.searchParams.get('adults');
+    var children = url.searchParams.get('children');
+    var lang     = url.searchParams.get('lang') || 'fr';
+
+    var iframeUrl;
+    if (appart) {
+      iframeUrl = 'https://app.superhote.com/#/rental/' + appart + '?lang=' + lang;
+    } else if (checkin) {
+      iframeUrl = 'https://app.superhote.com/#/get-available-rentals/' + webKey
+        + '?startDate=' + checkin
+        + '&endDate='   + checkout
+        + '&adultsNumber='   + (adults   || 2)
+        + '&childrenNumber=' + (children || 0)
+        + '&lang=' + lang;
+      // Pre-fill search form
+      if (checkin)  document.getElementById('s_checkin').value  = checkin;
+      if (checkout) document.getElementById('s_checkout').value = checkout;
+      if (adults)   document.getElementById('s_adults').value   = adults;
+      if (children) document.getElementById('s_children').value = children;
+    } else {
+      iframeUrl = 'https://app.superhote.com/#/get-available-rentals/' + webKey + '?lang=' + lang;
+    }
+
+    document.getElementById('bookingengine').src = iframeUrl;
+
+    // Set date mins
+    var today = new Date().toISOString().split('T')[0];
+    var sIn  = document.getElementById('s_checkin');
+    var sOut = document.getElementById('s_checkout');
+    sIn.min  = today;
+    sIn.addEventListener('change', function() {
+      sOut.min = sIn.value;
+      if (sOut.value && sOut.value <= sIn.value) {
+        var d = new Date(sIn.value); d.setDate(d.getDate()+1);
+        sOut.value = d.toISOString().split('T')[0];
+      }
+    });
+  })();
+
+  // ── SEARCH FORM ───────────────────────────────────────
+  function doSearch(e) {
+    e.preventDefault();
+    var params = new URLSearchParams({
+      checkin:  document.getElementById('s_checkin').value,
+      checkout: document.getElementById('s_checkout').value,
+      adults:   document.getElementById('s_adults').value,
+      children: document.getElementById('s_children').value,
+    });
+    window.location.href = '?' + params.toString() + '#booking';
+  }
+
+  function adj(id, delta) {
+    var el = document.getElementById(id);
+    var min = parseInt(el.min) || 0;
+    var val = Math.max(min, parseInt(el.value) + delta);
+    el.value = val;
+  }
+</script>
 
 <!-- ── CONTACT ────────────────────────────────────────── -->
 <section class="section section-alt" id="contact">

@@ -171,10 +171,16 @@
     .hs-field label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 3px; }
     .hs-field input, .hs-field select {
       border: none; background: transparent; outline: none;
-      font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 500;
-      color: var(--gray-800); width: 100%; cursor: pointer; padding: 0;
-      -webkit-appearance: none; appearance: none;
+      font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 500;
+      color: var(--gray-800); width: 100%; cursor: pointer;
+      min-height: 26px; padding: 0; display: block;
     }
+    /* select keeps custom look (no native arrow) */
+    .hs-field select { -webkit-appearance: none; appearance: none; }
+    /* date inputs: keep native picker (do NOT set appearance:none — breaks tap on iOS) */
+    .hs-field input[type="date"] { min-width: 0; line-height: 1.2; }
+    .hs-field input[type="date"]::-webkit-date-and-time-value { text-align: left; }
+    .hs-field input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; }
     .hs-sep { width: 1px; background: var(--gray-200); margin: 8px 0; flex-shrink: 0; }
     .hs-btn {
       flex-shrink: 0; background: var(--amber); color: var(--dark);
@@ -205,6 +211,7 @@
       z-index: 2; color: rgba(255,255,255,0.5); font-size: 0.7rem; letter-spacing: 0.1em;
       display: flex; flex-direction: column; align-items: center; gap: 6px;
       animation: bounce 2.5s ease-in-out infinite;
+      pointer-events: none;  /* don't intercept taps on the search form */
     }
     @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
 
@@ -762,6 +769,7 @@
       .nav-actions .nav-link { display: none; }
       .nav-actions .nav-cta { display: none; }
       .nav-ham { display: flex; }
+      .hero-scroll-hint { display: none; }
       .gites-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .sticky-bar { display: block; }
@@ -771,7 +779,6 @@
       .footer-mid { text-align: left; }
     }
     @media (max-width: 480px) {
-      .hero-btns .btn:last-child { display: none; }
       .hero-title { font-size: 2.2rem; }
       .section { padding: 48px 0; }
     }

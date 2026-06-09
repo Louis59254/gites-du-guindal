@@ -575,8 +575,7 @@
     btn.addEventListener('click', () => {
       const el = document.getElementById(btn.dataset.sec);
       if (!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY - NAV_H - 12;
-      window.scrollTo({ top, behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       document.querySelectorAll('.sec-tab').forEach(t => t.classList.remove('active'));
       btn.classList.add('active');
     });

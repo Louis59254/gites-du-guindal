@@ -34,7 +34,7 @@
       --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-800); font-size: 15px; line-height: 1.6; overflow-x: hidden; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--gray-800); font-size: 15px; line-height: 1.6; overflow-x: clip; }
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
@@ -78,7 +78,7 @@
     .zone-tab small { font-size: 0.68rem; opacity: 0.55; margin-left: 2px; }
 
     /* ── SECTIONS ── */
-    .section { padding: 64px 0; }
+    .section { padding: 64px 0; scroll-margin-top: 116px; }
     .section-alt { background: var(--white); }
     .section-head { margin-bottom: 36px; }
     .section-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-lt); margin-bottom: 6px; }
@@ -761,15 +761,13 @@
   document.getElementById('hamBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('open'));
   function closeMob() { document.getElementById('mobileMenu').classList.remove('open'); }
 
-  // Zone tab click navigation
+  // Zone tab click navigation (scrollIntoView works regardless of scroll container)
   const NAV_OFFSET = 64 + 49; // nav + zone-nav height
   document.querySelectorAll('.zone-tab').forEach(btn => {
     btn.addEventListener('click', () => {
-      const id = btn.dataset.target;
-      const el = document.getElementById(id);
+      const el = document.getElementById(btn.dataset.target);
       if (!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY - NAV_OFFSET - 8;
-      window.scrollTo({ top, behavior: 'smooth' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       setActiveTab(btn);
     });
   });

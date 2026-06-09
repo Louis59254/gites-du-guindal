@@ -631,11 +631,24 @@
     }
     .modal-engine-loader span { font-size: 0.8rem; color: var(--gray-400); }
     @keyframes spin { to { transform: rotate(360deg); } }
-    /* Bounded iframe with its own scroll (no empty block, button reachable) */
+    /* Bounded iframe with its own scroll (desktop only) */
     .modal-engine iframe {
       display: block; width: 100%; height: 760px; border: none;
       background: white; position: relative; z-index: 0;
       -webkit-overflow-scrolling: touch;
+    }
+    /* Mobile fallback button (iframes don't scroll on iOS) */
+    .modal-engine-btn {
+      display: none; align-items: center; justify-content: center; gap: 8px;
+      background: var(--amber); color: var(--dark);
+      font-size: 1rem; font-weight: 600; text-align: center;
+      padding: 16px 20px; border-radius: 12px; text-decoration: none;
+      box-shadow: 0 6px 20px rgba(196,160,53,0.35);
+    }
+    .modal-engine-btn:active { transform: scale(0.98); }
+    .modal-engine-hint {
+      display: none; font-size: 0.78rem; color: var(--gray-400);
+      text-align: center; margin-top: 10px; line-height: 1.5;
     }
     .modal-foot {
       padding: 16px 32px; background: var(--cream);
@@ -652,9 +665,13 @@
       .modal-banner-content { padding: 20px; }
       .modal-title { font-size: 1.6rem; }
       .modal-body { padding: 22px 20px 0; }
-      .modal-engine { margin: 0 -20px; padding: 20px 20px 0; }
+      .modal-engine { margin: 0 -20px; padding: 20px 20px 24px; }
       .modal-foot { padding: 16px 20px; }
-      .modal-engine iframe { height: 78vh; min-height: 560px; }
+      /* Hide iframe on mobile (iOS scroll broken) → show button instead */
+      .modal-engine-frame { display: none; }
+      .modal-engine-btn { display: flex; }
+      .modal-engine-hint { display: block; }
+      .modal-engine-badge { display: none; }
     }
 
     /* ── FOOTER ──────────────────────────────────────── */
@@ -1144,6 +1161,10 @@
             sandbox="allow-scripts allow-forms allow-same-origin allow-presentation allow-top-navigation allow-top-navigation-by-user-activation allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"
             title="Disponibilités"></iframe>
         </div>
+        <a class="modal-engine-btn" id="modalOpenTab" href="#" target="_blank" rel="noopener">
+          📅 Voir les disponibilités &amp; réserver →
+        </a>
+        <p class="modal-engine-hint">Calendrier &amp; paiement sécurisé sur notre plateforme de réservation</p>
       </div>
     </div>
     <div class="modal-foot">
@@ -1280,6 +1301,32 @@
   /* ── BOOKING MODAL ────────────────────────────────── */
   const SH_WEBKEY = 'JkkSQkK3bnEuihF7AVuQ0odeM';
 
+  function isMobile() { return window.matchMedia('(max-width: 700px)').matches; }
+
+  function buildEngineUrl(shkey, opts) {
+    let url = shkey
+      ? `https://app.superhote.com/#/rental/${shkey}?lang=fr`
+      : `https://app.superhote.com/#/get-available-rentals/${SH_WEBKEY}?lang=fr`;
+    if (opts && opts.checkin) {
+      url += `&startDate=${opts.checkin}&endDate=${opts.checkout}`
+           + `&adultsNumber=${opts.adults || 2}&childrenNumber=${opts.children || 0}`;
+    }
+    return url;
+  }
+
+  // On desktop: embed engine in iframe. On mobile (iOS iframe scroll is broken):
+  // wire a button that opens the engine full-screen in a new tab.
+  function loadEngine(url) {
+    const btn = document.getElementById('modalOpenTab');
+    btn.href = url;
+    if (isMobile()) {
+      document.getElementById('modalIframe').src = '';   // don't load iframe on mobile
+    } else {
+      resetLoader();
+      document.getElementById('modalIframe').src = url;
+    }
+  }
+
   function resetLoader() {
     document.getElementById('modalLoader').classList.remove('hidden');
   }
@@ -1335,13 +1382,7 @@
     document.getElementById('modalFeatures').innerHTML =
       g.features.map(f => `<span class="modal-feat">✓ ${f}</span>`).join('');
 
-    resetLoader();
-    // Per-gîte calendar if property key set, else full engine
-    const src = g.shkey
-      ? `https://app.superhote.com/#/rental/${g.shkey}?lang=fr`
-      : `https://app.superhote.com/#/get-available-rentals/${SH_WEBKEY}?lang=fr`;
-    document.getElementById('modalIframe').src = src;
-
+    loadEngine(buildEngineUrl(g.shkey));
     document.getElementById('giteModal').classList.add('open');
     document.body.classList.add('modal-open');
   }
@@ -1358,25 +1399,25 @@
       ['Gîtes 2 à 9 pers.','Mobilhomes','Paiement sécurisé','Sans commission']
         .map(f => `<span class="modal-feat">✓ ${f}</span>`).join('');
 
-    resetLoader();
-    let src = `https://app.superhote.com/#/get-available-rentals/${SH_WEBKEY}?lang=fr`;
-    if (opts && opts.checkin) {
-      src += `&startDate=${opts.checkin}&endDate=${opts.checkout}`
-           + `&adultsNumber=${opts.adults || 2}&childrenNumber=${opts.children || 0}`;
-    }
-    document.getElementById('modalIframe').src = src;
+    loadEngine(buildEngineUrl(null, opts));
     document.getElementById('giteModal').classList.add('open');
     document.body.classList.add('modal-open');
   }
 
   function heroSearch(e) {
     e.preventDefault();
-    openAllEngine({
+    const opts = {
       checkin:  document.getElementById('hs_checkin').value,
       checkout: document.getElementById('hs_checkout').value,
       adults:   document.getElementById('hs_adults').value,
       children: 0,
-    });
+    };
+    // Mobile: go straight to full-screen engine (native scroll, reachable payment)
+    if (isMobile()) {
+      window.open(buildEngineUrl(null, opts), '_blank', 'noopener');
+    } else {
+      openAllEngine(opts);
+    }
   }
 
   // Hero search date constraints

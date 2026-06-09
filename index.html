@@ -31,6 +31,8 @@
       --shadow-lg: 0 8px 40px rgba(0,0,0,0.14);
     }
     html { scroll-behavior: smooth; }
+    /* offset anchored sections so titles aren't hidden under fixed nav */
+    section[id], div[id="reservation"] { scroll-margin-top: 76px; }
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
@@ -1537,10 +1539,18 @@
   }
 
   /* ── CARD SLIDESHOWS ──────────────────────────────── */
-  let slideTimers = [];
+  let slideTimers = [];   // intervals
+  let slideTimeouts = []; // staggered starts
+  function stopCardSlideshows() {
+    slideTimers.forEach(clearInterval);   slideTimers = [];
+    slideTimeouts.forEach(clearTimeout);  slideTimeouts = [];
+  }
+  function aModalOpen() {
+    return document.getElementById('giteModal').classList.contains('open')
+        || document.getElementById('engineFull').classList.contains('open');
+  }
   function startCardSlideshows() {
-    slideTimers.forEach(t => clearInterval(t));
-    slideTimers = [];
+    stopCardSlideshows();
 
     [...document.querySelectorAll('.gite-card')].forEach((card, ci) => {
       const g = GITES.find(x => x.id === card.dataset.id);
@@ -1549,9 +1559,10 @@
 
       const state = { idx: 0, showA: true,
         a: card.querySelector('.gp-a'), b: card.querySelector('.gp-b') };
+      if (!state.a || !state.b) return;
 
       const advance = () => {
-        if (document.hidden) return;
+        if (document.hidden || aModalOpen()) return; // pause when overlay open
         state.idx = (state.idx + 1) % photos.length;
         const incoming = state.showA ? state.b : state.a;
         const outgoing = state.showA ? state.a : state.b;
@@ -1562,10 +1573,10 @@
       };
 
       // staggered start so cards don't all flip at once
-      setTimeout(() => {
+      slideTimeouts.push(setTimeout(() => {
         advance();
         slideTimers.push(setInterval(advance, 3000));
-      }, ci * 500);
+      }, ci * 500));
     });
   }
 

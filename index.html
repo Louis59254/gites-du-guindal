@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Les Gîtes du Guindal – Bourbourg, Nord</title>
-  <meta name="description" content="10 hébergements de charme à Bourbourg (59) — gîtes et mobilhomes, jusqu'à 9 personnes. Réservez en direct, disponibilités en temps réel." />
+  <title>Les Gîtes du Guindal – Hébergement à Bourbourg, proche Verkor, centrale de Gravelines &amp; port de Dunkerque</title>
+  <meta name="description" content="10 hébergements à Bourbourg (59) : gîtes & mobilhomes idéaux pour séjours professionnels, missions et chantiers. À 5 min de Verkor, 10 min de la centrale nucléaire de Gravelines et du port de Dunkerque. Longue durée, groupes, factures. Réservation directe." />
+  <meta name="keywords" content="hébergement professionnel Bourbourg, gîte Verkor, logement chantier Gravelines, hébergement centrale nucléaire Gravelines, logement mission Dunkerque, gîte longue durée Nord, hébergement salariés Bourbourg, logement port Dunkerque" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
@@ -216,6 +217,35 @@
     @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
 
     /* ── STATS BAR ───────────────────────────────────── */
+    /* ── PRO SECTION ── */
+    #pro { background: var(--dark); color: white; padding: 72px 0; }
+    .pro-head { max-width: 760px; margin: 0 auto 40px; text-align: center; }
+    .pro-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; }
+    .pro-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem,4vw,2.8rem); line-height: 1.15; margin-bottom: 14px; }
+    .pro-title em { font-style: italic; color: var(--amber); }
+    .pro-sub { font-size: 0.96rem; color: rgba(255,255,255,0.7); line-height: 1.7; }
+    .pro-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; max-width: 1000px; margin: 0 auto 40px; }
+    .pro-site {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px; padding: 22px 18px; text-align: center;
+    }
+    .pro-site-ico { font-size: 1.8rem; margin-bottom: 10px; }
+    .pro-site-name { font-size: 0.92rem; font-weight: 600; color: white; margin-bottom: 4px; line-height: 1.25; }
+    .pro-site-dist { font-size: 0.8rem; font-weight: 700; color: var(--amber); }
+    .pro-site-desc { font-size: 0.74rem; color: rgba(255,255,255,0.5); margin-top: 6px; line-height: 1.4; }
+    .pro-feats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 1000px; margin: 0 auto 36px; }
+    .pro-feat { display: flex; align-items: flex-start; gap: 12px; }
+    .pro-feat-ico {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(196,160,53,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .pro-feat-t { font-size: 0.9rem; font-weight: 600; color: white; margin-bottom: 2px; }
+    .pro-feat-d { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.5; }
+    .pro-cta { text-align: center; }
+    .pro-cta p { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-top: 12px; }
+    @media (max-width: 860px) { .pro-grid { grid-template-columns: 1fr 1fr; } .pro-feats { grid-template-columns: 1fr; } }
+    @media (max-width: 460px) { .pro-grid { grid-template-columns: 1fr 1fr; } }
+
     .stats-bar { background: var(--green); color: var(--white); }
     .stats-inner {
       display: flex; justify-content: space-around; padding: 20px;
@@ -798,6 +828,7 @@
     </a>
     <div class="nav-actions">
       <a href="#gites" class="nav-link">Hébergements</a>
+      <a href="#pro" class="nav-link">Séjour pro</a>
       <a href="#domaine" class="nav-link">Le domaine</a>
       <a href="decouvrir.html" class="nav-link">La région</a>
       <a href="bonnes-adresses.html" class="nav-link">Bonnes adresses</a>
@@ -813,6 +844,7 @@
 <!-- mobile menu -->
 <div class="nav-mobile" id="mobileMenu">
   <a href="#gites" onclick="closeMob()">🏡 Hébergements</a>
+  <a href="#pro" onclick="closeMob()">💼 Séjour pro</a>
   <a href="#domaine" onclick="closeMob()">🌿 Le domaine</a>
   <a href="decouvrir.html" onclick="closeMob()">🗺️ La région</a>
   <a href="bonnes-adresses.html" onclick="closeMob()">🍽️ Bonnes adresses</a>
@@ -829,11 +861,11 @@
     <img src="logo_gites_guindal.jpg" alt="Les Gîtes du Guindal" class="hero-logo" />
     <div class="hero-badge">Bourbourg · Nord de France · 59630</div>
     <h1 class="hero-title">Votre escapade<br><em>en Flandre</em></h1>
-    <p class="hero-sub">10 hébergements authentiques au cœur de la plaine flamande</p>
+    <p class="hero-sub">10 hébergements pour vos séjours pro &amp; vacances — à 5 min de Verkor, 10 min de la centrale de Gravelines et du port de Dunkerque</p>
     <div class="hero-pills">
+      <span class="hero-pill">💼 Idéal séjours pro</span>
       <span class="hero-pill">👨‍👩‍👧‍👦 Jusqu'à 9 pers.</span>
       <span class="hero-pill">🔒 Propriété sécurisée</span>
-      <span class="hero-pill">🎳 Pétanque & BBQ</span>
       <span class="hero-pill">🚗 Parking privé</span>
     </div>
     <div class="hero-btns">
@@ -891,11 +923,99 @@
       <span class="stat-l">mobilhomes</span>
     </div>
     <div class="stat">
-      <span class="stat-n">2km</span>
-      <span class="stat-l">de Bourbourg</span>
+      <span class="stat-n">5min</span>
+      <span class="stat-l">de Verkor</span>
     </div>
   </div>
 </div>
+
+<!-- ── SÉJOUR PROFESSIONNEL ───────────────────────────── -->
+<section id="pro">
+  <div class="container">
+    <div class="pro-head">
+      <p class="pro-label">💼 Séjours professionnels &amp; chantiers</p>
+      <h2 class="pro-title">Au cœur du <em>pôle industriel</em> dunkerquois</h2>
+      <p class="pro-sub">Une situation stratégique pour les salariés en mission, intérimaires, prestataires et équipes de chantier. Les Gîtes du Guindal sont à quelques minutes des plus grands sites industriels du Nord — une alternative confortable et économique à l'hôtel.</p>
+    </div>
+
+    <div class="pro-grid">
+      <div class="pro-site">
+        <div class="pro-site-ico">🔋</div>
+        <div class="pro-site-name">Verkor<br>(Gigafactory)</div>
+        <div class="pro-site-dist">~5 min</div>
+        <div class="pro-site-desc">Usine de batteries à Bourbourg</div>
+      </div>
+      <div class="pro-site">
+        <div class="pro-site-ico">🏭</div>
+        <div class="pro-site-name">Clerbout</div>
+        <div class="pro-site-dist">~5 min</div>
+        <div class="pro-site-desc">Site industriel local</div>
+      </div>
+      <div class="pro-site">
+        <div class="pro-site-ico">⚛️</div>
+        <div class="pro-site-name">Centrale de Gravelines</div>
+        <div class="pro-site-dist">~10 min</div>
+        <div class="pro-site-desc">1<sup>re</sup> centrale d'Europe occidentale (futurs EPR2)</div>
+      </div>
+      <div class="pro-site">
+        <div class="pro-site-ico">🚢</div>
+        <div class="pro-site-name">Port de Dunkerque</div>
+        <div class="pro-site-dist">~10 min</div>
+        <div class="pro-site-desc">Grand Port Maritime &amp; zone industrielle</div>
+      </div>
+    </div>
+
+    <div class="pro-feats">
+      <div class="pro-feat">
+        <div class="pro-feat-ico">🧾</div>
+        <div>
+          <div class="pro-feat-t">Factures &amp; justificatifs</div>
+          <div class="pro-feat-d">Documents fournis pour vos notes de frais et la comptabilité de l'entreprise.</div>
+        </div>
+      </div>
+      <div class="pro-feat">
+        <div class="pro-feat-ico">📅</div>
+        <div>
+          <div class="pro-feat-t">Longue durée &amp; tarifs dégressifs</div>
+          <div class="pro-feat-d">Séjours à la semaine ou au mois, idéals pour les missions prolongées.</div>
+        </div>
+      </div>
+      <div class="pro-feat">
+        <div class="pro-feat-ico">👷</div>
+        <div>
+          <div class="pro-feat-t">Équipes &amp; groupes</div>
+          <div class="pro-feat-d">Jusqu'à 30+ personnes en combinant plusieurs hébergements sur un même domaine sécurisé.</div>
+        </div>
+      </div>
+      <div class="pro-feat">
+        <div class="pro-feat-ico">🍳</div>
+        <div>
+          <div class="pro-feat-t">Cuisines équipées</div>
+          <div class="pro-feat-d">Autonomie totale : cuisine, lave-linge, de quoi se sentir comme à la maison après le travail.</div>
+        </div>
+      </div>
+      <div class="pro-feat">
+        <div class="pro-feat-ico">🚗</div>
+        <div>
+          <div class="pro-feat-t">Parking &amp; accès rapides</div>
+          <div class="pro-feat-d">Parking privé sécurisé, à 5 min de l'A16 — Dunkerque, Calais et la zone des grandes industries.</div>
+        </div>
+      </div>
+      <div class="pro-feat">
+        <div class="pro-feat-ico">🔒</div>
+        <div>
+          <div class="pro-feat-t">Domaine sécurisé</div>
+          <div class="pro-feat-d">Propriété sous vidéosurveillance, calme garanti pour récupérer entre deux journées.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pro-cta">
+      <a href="#contact" class="btn btn-amber">Demander un devis professionnel</a>
+      <p>Réponse rapide · Conditions adaptées aux entreprises &amp; collectivités</p>
+    </div>
+  </div>
+</section>
 
 <!-- ── HÉBERGEMENTS ───────────────────────────────────── -->
 <section class="section" id="gites">
@@ -954,15 +1074,16 @@
       <div>
         <p style="font-size:0.65rem;font-weight:600;letter-spacing:0.32em;text-transform:uppercase;color:var(--green-lt);margin-bottom:8px">Localisation</p>
         <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);color:var(--green);font-weight:400;line-height:1.1;margin-bottom:16px">Comment nous <em style="font-style:italic;color:var(--green-mid)">trouver ?</em></h2>
-        <p style="font-size:0.95rem;color:var(--gray-600);line-height:1.78;margin-bottom:24px">Au bout de la Route du Guindal, à 2 km du centre de Bourbourg. Le portail du domaine est sur la gauche après le virage. Parking privé disponible pour tous les hébergements.</p>
+        <p style="font-size:0.95rem;color:var(--gray-600);line-height:1.78;margin-bottom:24px">À Bourbourg, au cœur de la zone des grandes industries dunkerquoises : à 5 min de Verkor et de l'A16, 10 min de la centrale nucléaire de Gravelines et du port de Dunkerque. Parking privé pour tous les hébergements.</p>
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
           <div style="display:flex;align-items:center;gap:10px;background:var(--gray-50);padding:12px 16px;border-radius:10px;font-size:0.85rem">
             <span>📍</span><strong style="color:var(--gray-800)">2830 Route du Guindal, 59630 Bourbourg</strong>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <span style="background:rgba(42,105,120,0.1);color:var(--green);font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px">🚗 Calais ~25 min</span>
-            <span style="background:rgba(42,105,120,0.1);color:var(--green);font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px">🚗 Dunkerque ~20 min</span>
-            <span style="background:rgba(42,105,120,0.1);color:var(--green);font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px">🚗 Gravelines ~10 min</span>
+            <span style="background:rgba(42,105,120,0.1);color:var(--green);font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px">🔋 Verkor ~5 min</span>
+            <span style="background:rgba(42,105,120,0.1);color:var(--green);font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px">⚛️ Centrale Gravelines ~10 min</span>
+            <span style="background:rgba(42,105,120,0.1);color:var(--green);font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px">🚢 Port Dunkerque ~10 min</span>
+            <span style="background:rgba(42,105,120,0.1);color:var(--green);font-size:0.78rem;font-weight:600;padding:6px 14px;border-radius:8px">🚗 A16 ~5 min</span>
           </div>
         </div>
         <a href="https://maps.google.com/maps?q=2830+Route+du+Guindal,+59630+Bourbourg" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:var(--green);color:white;font-size:0.85rem;font-weight:600;padding:12px 22px;border-radius:10px;transition:background 0.2s">
